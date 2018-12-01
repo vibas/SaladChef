@@ -3,17 +3,18 @@
 public class PlayerMovement : MonoBehaviour
 {
     Player playerScript;
-    Vector2 velocity;
-    Transform playerTransform;
+    Vector2 velocity; 
 
     private void Awake()
-    {
-        playerTransform = transform;
+    {       
         playerScript = GetComponent<Player>();
     }     
 
     private void FixedUpdate()
     {
+        if (!playerScript.CanMove())
+            return;
+
         Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
         if (Input.GetKey(playerScript.inputConfig.rightMovementKey))
         {

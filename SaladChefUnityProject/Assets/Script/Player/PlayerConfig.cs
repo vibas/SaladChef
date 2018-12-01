@@ -12,5 +12,5 @@ public class PlayerConfig : ScriptableObject
     [Header("Details")]
     public int playerID;
     public string playerName;
-    public Sprite playerImage;
+    public Sprite playerImage;    
 }
