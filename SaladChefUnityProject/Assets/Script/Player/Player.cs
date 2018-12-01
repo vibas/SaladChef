@@ -167,7 +167,7 @@ public class Player : MonoBehaviour
         isPlayerCarryingSalad = true;        
     }
 
-    public void DeliverPreparedSalad()
+    public void RemoveSaladFromHand()
     {
         currentSalad.Clear();
         isPlayerCarryingSalad = false;

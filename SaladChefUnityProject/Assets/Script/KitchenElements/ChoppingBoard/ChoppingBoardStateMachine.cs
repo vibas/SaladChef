@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChoppingBoardStateMachine : StateMachine
 {   
@@ -12,7 +13,10 @@ public class ChoppingBoardStateMachine : StateMachine
     }
     public float totalChoppingTime;    
     public float timer;
-    public CHOPPING_BOARD_STATE choppingBoardCurrentState = CHOPPING_BOARD_STATE.IDLE;    
+    public CHOPPING_BOARD_STATE choppingBoardCurrentState = CHOPPING_BOARD_STATE.IDLE;
+
+    public GameObject timerObj;
+    public Image timerImage;
     
     // Use this for initialization
     void Start ()

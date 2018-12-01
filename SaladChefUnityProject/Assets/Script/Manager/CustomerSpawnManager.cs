@@ -7,7 +7,7 @@ public class CustomerSpawnManager : MonoBehaviour
     public CustomerCounter[] customerSpawningPoints;
     public GameObject customerPrefab;
 
-    private void Start()
+    public void SpawnCustomer()
     {
         for (int i = 0; i < customerSpawningPoints.Length; i++)
         {
@@ -19,10 +19,12 @@ public class CustomerSpawnManager : MonoBehaviour
             customerSpawningPoints[i].isOccupied = true;
             customerSpawningPoints[i].gameObject.SetActive(true);
             customerSpawningPoints[i].customer = customer.GetComponent<Customer>();
+            customerSpawningPoints[i].customer.counter = customerSpawningPoints[i];
         }
+        InitiateAllCustomer();
     }
 
-    public void InitiateAllCustomer()
+    void InitiateAllCustomer()
     {
         for (int i = 0; i < customerSpawningPoints.Length; i++)
         {

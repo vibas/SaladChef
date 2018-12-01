@@ -17,12 +17,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public SaladMeuManager saladMeuManager;
     public CustomerSpawnManager customerSpawnManager;
+    public PlayerSpawnManager playerSpawnManager;
 
     private void Start()
     {
+        playerSpawnManager.Init();
         vegInventory = new Inventory(gameConfig.vegetableArray);
         saladMeuManager = GetComponent<SaladMeuManager>();
         saladMeuManager.CreateMenu();
-        customerSpawnManager.InitiateAllCustomer();
+        customerSpawnManager.SpawnCustomer();
     }  
 }

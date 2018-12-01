@@ -9,7 +9,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public PlayerConfig player1Config, player2Config;
 	// Use this for initialization
-	void Awake ()
+	public void Init ()
     {
         GameObject player1 = Instantiate(playerPrefab, playerSpawnPointArray[0].position, Quaternion.identity);
         player1.transform.position = new Vector3(player1.transform.position.x, player1.transform.position.y, 0);

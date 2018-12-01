@@ -7,18 +7,24 @@ public class TrashBin : InteractibleKitchenElement
     public override void PlayerReached(Player player)
     {
         player.playerInteraction.onPutKeyPressed += PlayerDumpedSalad;
-        EnableOrDisableInteractionButton(true, player.inputConfig.pickKey.ToString());        
+
+        if(player.IsCarryingSalad())
+            EnableOrDisableInteractionButton(true, player.inputConfig.putKey.ToString());        
     }
 
     public override void PlayerLeft(Player player)
     {
-        player.playerInteraction.onPickKeyPressed -= PlayerDumpedSalad;
+        player.playerInteraction.onPutKeyPressed -= PlayerDumpedSalad;
         EnableOrDisableInteractionButton(false);
     }
 
     void PlayerDumpedSalad(Player player)
     {    
-        
+        if(player.IsCarryingSalad())
+        {
+            player.RemoveSaladFromHand();
+            EnableOrDisableInteractionButton(false);
+        }
     }
 
 }

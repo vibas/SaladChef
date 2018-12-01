@@ -5,7 +5,13 @@ using UnityEngine;
 public class CustomerCounter : InteractibleKitchenElement
 {
     public bool isOccupied;
-    public Customer customer;    
+    public Customer customer;  
+
+    public void OnCustomerLeft()
+    {
+        customer = null;
+        isOccupied = false;
+    }
 
     public override void PlayerReached(Player player)
     {
@@ -32,14 +38,14 @@ public class CustomerCounter : InteractibleKitchenElement
 
         if(Utility.AreBothListEqual(player.currentSalad,customer.orderSalad))
         {
-            Debug.LogError("Happy Customer");
+            customer.GetComponent<CustomerStateMachine>().ChangeState(CustomerStateMachine.CUSTOMER_STATE.SATISFIED);
         }
         else
         {
-            Debug.LogError("Angry Customer");
+            customer.GetComponent<CustomerStateMachine>().ChangeState(CustomerStateMachine.CUSTOMER_STATE.ANGRY);
         }
 
-        player.DeliverPreparedSalad();
+        player.RemoveSaladFromHand();
         EnableOrDisableInteractionButton(false);        
     }    
 }
