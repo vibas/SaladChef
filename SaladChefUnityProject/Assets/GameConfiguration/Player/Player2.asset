@@ -20,5 +20,5 @@ MonoBehaviour:
     putKey: 113
   initialMovementSpeed: 5
   playerID: 2
-  playerName: Jack
+  playerName: Sam
   playerImage: {fileID: 21300000, guid: d3fdc7aa5a08a514eb5a5e42e3c19824, type: 3}

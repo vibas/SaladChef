@@ -7,6 +7,7 @@ public class ChoppingBoard : InteractibleKitchenElement
     ChoppingBoardStateMachine choppingBoardStateMachine;
     Player currentLockedPlayer;
     List<string> currentSalad;
+    public SaladMaker saladMaker;
 
     public GameObject pickSaladButton; // Extra Button for interactible kitchen element
 
@@ -53,6 +54,7 @@ public class ChoppingBoard : InteractibleKitchenElement
         {
             string currentVegetableID = player.GetFirstPickedVegetable();
             currentSalad.Add(currentVegetableID);
+            saladMaker.AddVegetable(GameManager._instance.vegInventory.GetVegetable(currentVegetableID).choppedItemSprite);
             choppingBoardStateMachine.ChangeState(ChoppingBoardStateMachine.CHOPPING_BOARD_STATE.CHOPPING);
             currentLockedPlayer = player;
             currentLockedPlayer.playerInteraction.StartChoppingVegetable(currentVegetableID);
@@ -69,9 +71,10 @@ public class ChoppingBoard : InteractibleKitchenElement
         if (CheckIfSaladReadyToServe(player))
         {
             List<string> salad = Utility.GetACopyList(currentSalad);
-            player.CarryPreparedSalad(salad);
+            player.playerInteraction.CarryPreparedSalad(salad);
             EnableOrDisableInteractionButton(pickSaladButton, false);
             currentSalad.Clear();
+            saladMaker.ClearSalad();
         }
         else
         {

@@ -7,7 +7,7 @@ public class Menu
     {
         menuDict = new Dictionary<int, List<string>>();
         for (int i = 0; i < allSalad.Count; i++)
-        {
+        {   
             menuDict.Add(allSalad[i].saladID, allSalad[i].ingredientsList);
         }       
     }	

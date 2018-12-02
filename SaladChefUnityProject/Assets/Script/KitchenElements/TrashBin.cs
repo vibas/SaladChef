@@ -22,7 +22,7 @@ public class TrashBin : InteractibleKitchenElement
     {    
         if(player.IsCarryingSalad())
         {
-            player.RemoveSaladFromHand();
+            player.playerInteraction.RemoveSaladFromHand();
             EnableOrDisableInteractionButton(false);
         }
     }

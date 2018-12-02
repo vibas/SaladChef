@@ -1,13 +1,20 @@
 fileFormatVersion: 2
-guid: 857609e1c5f559c4986a1db77be247f1
+guid: 154a61198bb3cce4e84eed9ca170b057
 TextureImporter:
   fileIDToRecycleName:
     21300000: Item_2
     21300002: Item_1
     21300004: Item_3
-    21300006: Item_6
-    21300008: Item_4
-    21300010: Item_5
+    21300006: Chop_2
+    21300008: Chop_1
+    21300010: Chop_3
+    21300012: Chop_4
+    21300014: Item_6
+    21300016: Item_5
+    21300018: Chop_5
+    21300020: Vegetables1_10
+    21300022: Chop_6
+    21300024: Item_4
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -104,10 +111,10 @@ TextureImporter:
       name: Item_2
       rect:
         serializedVersion: 2
-        x: 29
-        y: 420
-        width: 69
-        height: 67
+        x: 52
+        y: 225
+        width: 70
+        height: 65
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,7 +122,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba49c3dd2f724d34ab13fdd50820bc74
+      spriteID: c12b50e8271b67841ac10b4c69daab18
       vertices: []
       indices: 
       edges: []
@@ -124,8 +131,8 @@ TextureImporter:
       name: Item_1
       rect:
         serializedVersion: 2
-        x: 150
-        y: 406
+        x: 174
+        y: 209
         width: 167
         height: 96
       alignment: 0
@@ -135,7 +142,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dde1bc95ec70bbc449c45214e7cb7a24
+      spriteID: 0b9a5fbbb12fe2a45a074eff32ae8d16
       vertices: []
       indices: 
       edges: []
@@ -144,9 +151,9 @@ TextureImporter:
       name: Item_3
       rect:
         serializedVersion: 2
-        x: 374
-        y: 397
-        width: 122
+        x: 398
+        y: 200
+        width: 121
         height: 115
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -155,7 +162,87 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 174c5b5ec211f0942a7d8999d3ab9b10
+      spriteID: a4ef9de9b98de6f4a9dc2326b6a16aca
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chop_2
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 222
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6379f955d5d3ee94fb3efdf37177438f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chop_1
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 217
+        width: 83
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb5e664afd635bc478556f51225037c5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chop_3
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 218
+        width: 82
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b26ea80b24b641640a9d74f75b6badad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chop_4
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 216
+        width: 79
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ce5226b49068f94fbf985dacbf394d1
       vertices: []
       indices: 
       edges: []
@@ -164,8 +251,8 @@ TextureImporter:
       name: Item_6
       rect:
         serializedVersion: 2
-        x: 14
-        y: 223
+        x: 38
+        y: 26
         width: 129
         height: 134
       alignment: 0
@@ -175,7 +262,87 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c85c14bd367999a4da545e9206475234
+      spriteID: c0dd826bc097d134cbccf63577760679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Item_5
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 26
+        width: 134
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ebee50fd0bb7dd488284191052c3141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chop_5
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 91
+        width: 97
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d30daa2b8d024f14cab0b669929de14d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vegetables1_10
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 150
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee51c2320b65ee84cb72b5174878e6d3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chop_6
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 101
+        width: 104
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b186318fa0457c45aa731858392789e
       vertices: []
       indices: 
       edges: []
@@ -184,8 +351,8 @@ TextureImporter:
       name: Item_4
       rect:
         serializedVersion: 2
-        x: 173
-        y: 239
+        x: 197
+        y: 42
         width: 121
         height: 102
       alignment: 0
@@ -195,27 +362,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5304068a7368b3047ae20c14183d02c3
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Item_5
-      rect:
-        serializedVersion: 2
-        x: 353
-        y: 223
-        width: 134
-        height: 129
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7997e375ff95b346858f3039b178235
+      spriteID: cd1f83166110c5e418fceac8ffb7349e
       vertices: []
       indices: 
       edges: []
@@ -223,7 +370,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 028179ed6ba37fc4e97228b93ee821d3
+    spriteID: ed47f051261a6ef4bb4cc02df4958061
     vertices: []
     indices: 
     edges: []

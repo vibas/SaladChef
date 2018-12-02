@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
             _instance = this.GetComponent<GameManager>();
     }
 
+    [SerializeField]
+    List<Player> allPlayers;
+
     public GameConfiguration gameConfig;
     public Inventory vegInventory;
     [HideInInspector]
@@ -21,10 +24,25 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        allPlayers = new List<Player>();
+
         playerSpawnManager.Init();
         vegInventory = new Inventory(gameConfig.vegetableArray);
         saladMeuManager = GetComponent<SaladMeuManager>();
         saladMeuManager.CreateMenu();
+
+        // For first time, 2 customers are spawned for 2 players.
         customerSpawnManager.SpawnCustomer();
-    }  
+        customerSpawnManager.SpawnCustomer();
+
+        customerSpawnManager.StartTImer();
+    } 
+    
+    public void AddPlayerToAllPlayerList(Player player)
+    {
+        if(!allPlayers.Contains(player))
+        {
+            allPlayers.Add(player);
+        }
+    }    
 }

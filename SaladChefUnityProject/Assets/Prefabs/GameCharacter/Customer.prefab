@@ -251,6 +251,18 @@ MonoBehaviour:
   orderSalad: []
   itemPrefab: {fileID: 1251875998797196, guid: 31173c0b7f2e7446694b384429595342, type: 2}
   content: {fileID: 224711022962653072}
+  counter: {fileID: 0}
+  playerWhoDeliveredSalad: {fileID: 0}
+  isAngry: 0
+  isSatisfied: 0
+  isImpressed: 0
+  faceReactionSprite:
+  - {fileID: 21300012, guid: a0e279275a8de144184eadad2ba45e73, type: 3}
+  - {fileID: 21300006, guid: a0e279275a8de144184eadad2ba45e73, type: 3}
+  - {fileID: 21300008, guid: a0e279275a8de144184eadad2ba45e73, type: 3}
+  - {fileID: 21300000, guid: a0e279275a8de144184eadad2ba45e73, type: 3}
+  - {fileID: 21300004, guid: a0e279275a8de144184eadad2ba45e73, type: 3}
+  customerFace: {fileID: 212392167563412264}
 --- !u!114 &114886566259221970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,11 +274,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5eb4cfc7f644a0da4cc3936dc71809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitTimeBeforeLeaving: 0
+  timerSpeedMultiplier: 1
   totalWatingTime: 60
   timer: 0
   customerCurrentState: 0
   timerObj: {fileID: 1891035220007012}
   timerImage: {fileID: 114715372932114172}
+  currentCustomer: {fileID: 0}
 --- !u!212 &212392167563412264
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -301,7 +316,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300012, guid: a0e279275a8de144184eadad2ba45e73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

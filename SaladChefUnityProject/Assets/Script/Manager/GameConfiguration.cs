@@ -7,5 +7,10 @@ public class GameConfiguration : ScriptableObject
     public int playerMaxHoldingCapacity;
 
     [Header("Vegetables")]
-    public Vegetable[] vegetableArray;
+    public Vegetable[] vegetableArray;    
+
+    [Header("Customer Details")]
+    public int angryCustomerTimerMultiplier;
+    public float waitTimerForNextCustomer;
+    public float waitTimeBeforeLeaving;
 }

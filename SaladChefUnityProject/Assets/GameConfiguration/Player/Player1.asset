@@ -20,5 +20,5 @@ MonoBehaviour:
     putKey: 110
   initialMovementSpeed: 5
   playerID: 1
-  playerName: Emily
+  playerName: Ria
   playerImage: {fileID: 21300000, guid: 47d21969229719040990a040624e42b8, type: 3}

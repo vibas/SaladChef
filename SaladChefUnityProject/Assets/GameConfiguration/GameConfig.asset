@@ -14,14 +14,29 @@ MonoBehaviour:
   playerMaxHoldingCapacity: 2
   vegetableArray:
   - itemID: Item_1
-    itemSprite: {fileID: 21300002, guid: 857609e1c5f559c4986a1db77be247f1, type: 3}
+    itemSprite: {fileID: 21300002, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}
+    choppedItemSprite: {fileID: 21300008, guid: 154a61198bb3cce4e84eed9ca170b057,
+      type: 3}
   - itemID: Item_2
-    itemSprite: {fileID: 21300000, guid: 857609e1c5f559c4986a1db77be247f1, type: 3}
+    itemSprite: {fileID: 21300000, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}
+    choppedItemSprite: {fileID: 21300006, guid: 154a61198bb3cce4e84eed9ca170b057,
+      type: 3}
   - itemID: Item_3
-    itemSprite: {fileID: 21300004, guid: 857609e1c5f559c4986a1db77be247f1, type: 3}
+    itemSprite: {fileID: 21300004, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}
+    choppedItemSprite: {fileID: 21300010, guid: 154a61198bb3cce4e84eed9ca170b057,
+      type: 3}
   - itemID: Item_4
-    itemSprite: {fileID: 21300008, guid: 857609e1c5f559c4986a1db77be247f1, type: 3}
+    itemSprite: {fileID: 21300024, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}
+    choppedItemSprite: {fileID: 21300012, guid: 154a61198bb3cce4e84eed9ca170b057,
+      type: 3}
   - itemID: Item_5
-    itemSprite: {fileID: 21300010, guid: 857609e1c5f559c4986a1db77be247f1, type: 3}
+    itemSprite: {fileID: 21300016, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}
+    choppedItemSprite: {fileID: 21300018, guid: 154a61198bb3cce4e84eed9ca170b057,
+      type: 3}
   - itemID: Item_6
-    itemSprite: {fileID: 21300006, guid: 857609e1c5f559c4986a1db77be247f1, type: 3}
+    itemSprite: {fileID: 21300014, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}
+    choppedItemSprite: {fileID: 21300022, guid: 154a61198bb3cce4e84eed9ca170b057,
+      type: 3}
+  angryCustomerTimerMultiplier: 2
+  waitTimerForNextCustomer: 45
+  waitTimeBeforeLeaving: 3

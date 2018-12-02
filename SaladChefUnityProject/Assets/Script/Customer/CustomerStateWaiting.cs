@@ -1,5 +1,6 @@
 ﻿public class CustomerStateWaiting : State
 {
+    bool hasCustomerStartedWorrying = false;
     CustomerStateMachine machine;
     public override void Enter()
     {
@@ -17,7 +18,22 @@
         {
             machine.timerObj.SetActive(false);
             machine.timer = 0;
-            machine.ChangeState(CustomerStateMachine.CUSTOMER_STATE.DISSATISFIED);
+
+            if (!machine.currentCustomer.isAngry)
+                machine.ChangeState(CustomerStateMachine.CUSTOMER_STATE.DISSATISFIED);
+            else
+                machine.ChangeState(CustomerStateMachine.CUSTOMER_STATE.LEAVE);
+        }
+        else
+        {
+            if (machine.timer / machine.totalWatingTime > 0.8f)
+            {
+                if(!hasCustomerStartedWorrying && !machine.currentCustomer.isAngry)
+                {
+                    hasCustomerStartedWorrying = true;
+                    machine.currentCustomer.GetWorried();
+                }                
+            }
         }
     }
 

@@ -20,11 +20,16 @@ public class Player : MonoBehaviour
     private int totalItemsInPlayerHand;
     [SerializeField]
     private string[] itemsInPlayerHand;
-    Queue items;
+    Queue vegetableQuaue;
     bool isPlayerMakingSalad;
 
     public List<string> currentSalad;
-    bool isPlayerCarryingSalad;
+    public bool isPlayerCarryingSalad;
+
+    // Tray in player's hand
+    [SerializeField]
+    private GameObject tray,saladOnPlate;
+    private BoxCollider2D trayCollider;
 
     /// <summary>
     /// Initialize Player Property
@@ -47,9 +52,13 @@ public class Player : MonoBehaviour
         this.totalItemsInPlayerHand = 0;
 
         playerInteraction = GetComponent<PlayerInteraction>();
-        items = new Queue();
+        vegetableQuaue = new Queue();
         isPlayerMakingSalad = false;
         isPlayerCarryingSalad = false;
+
+        tray.SetActive(false);
+        trayCollider = GetComponent<BoxCollider2D>();
+        trayCollider.enabled = false;
     }	
 
     /// <summary>
@@ -86,7 +95,7 @@ public class Player : MonoBehaviour
     public bool AreAllHandsFree()
     {
         bool areAllHandsFree = false;
-        if(items == null || items.Count==0)
+        if(vegetableQuaue == null || vegetableQuaue.Count==0)
         {
             areAllHandsFree = true;
         }
@@ -110,7 +119,7 @@ public class Player : MonoBehaviour
             isAnyHandFree = false;
         }
 
-        items.Enqueue(itemID);
+        vegetableQuaue.Enqueue(itemID);
     }
 
     /// <summary>
@@ -130,7 +139,7 @@ public class Player : MonoBehaviour
         }
         totalItemsInPlayerHand--;
         isAnyHandFree = true;
-        items.Dequeue();
+        vegetableQuaue.Dequeue();
     }
 
     /// <summary>
@@ -139,7 +148,7 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     public string GetFirstPickedVegetable()
     {
-        return items.Peek().ToString();
+        return vegetableQuaue.Peek().ToString();
     }
 
     /// <summary>
@@ -159,22 +168,24 @@ public class Player : MonoBehaviour
     public bool CanMove()
     {
         return !isPlayerMakingSalad;
-    }
-
-    public void CarryPreparedSalad(List<string> preparedSalad)
-    {
-        currentSalad = preparedSalad;
-        isPlayerCarryingSalad = true;        
-    }
-
-    public void RemoveSaladFromHand()
-    {
-        currentSalad.Clear();
-        isPlayerCarryingSalad = false;
-    }
+    } 
 
     public bool IsCarryingSalad()
     {
         return isPlayerCarryingSalad;
+    }
+
+    public void ShowOrHideSaladInPlayerHand(bool shouldSHow)
+    { 
+        if(shouldSHow)
+        {
+            saladOnPlate.GetComponent<SaladMaker>().CreateSalad(currentSalad);
+        }
+        else
+        {
+            saladOnPlate.GetComponent<SaladMaker>().ClearSalad();
+        }
+        tray.SetActive(shouldSHow);
+        trayCollider.enabled = shouldSHow;
     }
 }

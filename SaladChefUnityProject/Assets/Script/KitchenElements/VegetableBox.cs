@@ -9,7 +9,7 @@ public class VegetableBox : InteractibleKitchenElement
     public override void PlayerReached(Player player)
     {
         player.playerInteraction.onPickKeyPressed += PlayerPickedVegetable;
-        if(player.IsAnyHandFree())
+        if(player.IsAnyHandFree() && !player.IsCarryingSalad())
         {
             EnableOrDisableInteractionButton(true, player.inputConfig.pickKey.ToString());
         }        
@@ -23,7 +23,7 @@ public class VegetableBox : InteractibleKitchenElement
 
     void PlayerPickedVegetable(Player player)
     {
-        if (player.IsAnyHandFree())
+        if (player.IsAnyHandFree() && !player.IsCarryingSalad())
         {
             player.playerInteraction.PickVegetable(itemID);
             EnableOrDisableInteractionButton(player.IsAnyHandFree(), player.inputConfig.pickKey.ToString());

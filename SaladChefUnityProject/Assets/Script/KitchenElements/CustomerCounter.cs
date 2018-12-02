@@ -5,17 +5,20 @@ using UnityEngine;
 public class CustomerCounter : InteractibleKitchenElement
 {
     public bool isOccupied;
-    public Customer customer;  
+    public Customer customer;
+    Player currentPlayer;
 
     public void OnCustomerLeft()
     {
         customer = null;
         isOccupied = false;
+        this.gameObject.SetActive(false);
     }
 
     public override void PlayerReached(Player player)
     {
-        base.PlayerReached(player);        
+        base.PlayerReached(player);
+        currentPlayer = player;
         player.playerInteraction.onPutKeyPressed += DeliverSaladToCustomer;        
 
         // If Player is holding any vegetable
@@ -26,6 +29,7 @@ public class CustomerCounter : InteractibleKitchenElement
     public override void PlayerLeft(Player player)
     {
         base.PlayerLeft(player);
+        currentPlayer = null;
         player.playerInteraction.onPutKeyPressed -= DeliverSaladToCustomer;        
 
         EnableOrDisableInteractionButton(false);        
@@ -35,6 +39,7 @@ public class CustomerCounter : InteractibleKitchenElement
     {
         player.currentSalad.Sort();
         customer.orderSalad.Sort();
+        customer.playerWhoDeliveredSalad = player;
 
         if(Utility.AreBothListEqual(player.currentSalad,customer.orderSalad))
         {
@@ -45,7 +50,15 @@ public class CustomerCounter : InteractibleKitchenElement
             customer.GetComponent<CustomerStateMachine>().ChangeState(CustomerStateMachine.CUSTOMER_STATE.ANGRY);
         }
 
-        player.RemoveSaladFromHand();
+        player.playerInteraction.RemoveSaladFromHand();
         EnableOrDisableInteractionButton(false);        
-    }    
+    }
+
+    private void OnDisable()
+    {
+        if(currentPlayer!=null)
+        {
+            currentPlayer.playerInteraction.onPutKeyPressed -= DeliverSaladToCustomer;            
+        }
+    }
 }

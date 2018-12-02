@@ -6,31 +6,68 @@ public class CustomerSpawnManager : MonoBehaviour
 {
     public CustomerCounter[] customerSpawningPoints;
     public GameObject customerPrefab;
+    float waitTimerForNextCustomer,timer;
+    bool shouldTimerRun = false;
+
+    private void Start()
+    {
+        waitTimerForNextCustomer = GameManager._instance.gameConfig.waitTimerForNextCustomer;
+        timer = 0;
+    }
 
     public void SpawnCustomer()
     {
-        for (int i = 0; i < customerSpawningPoints.Length; i++)
+        CustomerCounter freeCounter = GetFreeCustomerCounter();
+
+        if (freeCounter)
         {
             GameObject customer = Instantiate(customerPrefab) as GameObject;
-            customer.name = "Customer" + i;
-            customer.transform.SetParent(customerSpawningPoints[i].transform);
+            customer.name = "Customer";
+            customer.transform.SetParent(freeCounter.transform);
             customer.transform.localScale = Vector3.one;
             customer.transform.localPosition = Vector3.zero;
-            customerSpawningPoints[i].isOccupied = true;
-            customerSpawningPoints[i].gameObject.SetActive(true);
-            customerSpawningPoints[i].customer = customer.GetComponent<Customer>();
-            customerSpawningPoints[i].customer.counter = customerSpawningPoints[i];
-        }
-        InitiateAllCustomer();
+            freeCounter.isOccupied = true;
+            freeCounter.gameObject.SetActive(true);
+            freeCounter.customer = customer.GetComponent<Customer>();
+            freeCounter.customer.counter = freeCounter;
+            freeCounter.customer.CheckForMenu();
+        }        
     }
 
-    void InitiateAllCustomer()
+    CustomerCounter GetFreeCustomerCounter()
     {
+        CustomerCounter freeCounter = null;
         for (int i = 0; i < customerSpawningPoints.Length; i++)
         {
-            customerSpawningPoints[i].customer.CheckForMenu();
+            if (!customerSpawningPoints[i].isOccupied)
+            {
+                freeCounter = customerSpawningPoints[i];
+                break;
+            }
         }
+        return freeCounter;
     }
 
-    // TODO time based Spawning
+    private void Update()
+    {
+        if(shouldTimerRun)
+        {
+            timer += Time.deltaTime;
+            if (timer > waitTimerForNextCustomer)
+            {
+                SpawnCustomer();
+                timer = 0;
+            }
+        }        
+    }
+
+    public void StartTImer()
+    {
+        shouldTimerRun = true;
+    }
+
+    public void StopTimer()
+    {
+        shouldTimerRun = false;
+    }
 }

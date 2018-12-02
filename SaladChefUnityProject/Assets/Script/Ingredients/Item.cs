@@ -11,4 +11,5 @@ public struct Vegetable
 {
     public string itemID;
     public Sprite itemSprite;
+    public Sprite choppedItemSprite;
 }

@@ -14,6 +14,7 @@ public class CustomerStateMachine : StateMachine
         LEAVE
     }
 
+    public float waitTimeBeforeLeaving;
     public int timerSpeedMultiplier=1;
     public float totalWatingTime;
     public float timer;
@@ -21,10 +22,19 @@ public class CustomerStateMachine : StateMachine
 
     public GameObject timerObj;
     public Image timerImage;
+    public Customer currentCustomer;
+
+    public void SetTotalWaitingTimer(int ingredientCount)
+    {
+        totalWatingTime = ingredientCount * 10;
+    }
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {        
         ChangeState(CUSTOMER_STATE.WAITING);
+        currentCustomer = GetComponent<Customer>();
+        waitTimeBeforeLeaving = GameManager._instance.gameConfig.waitTimeBeforeLeaving;
     }
 
     public void ChangeState(CUSTOMER_STATE state)
@@ -35,6 +45,7 @@ public class CustomerStateMachine : StateMachine
                 SetState(new CustomerStateWaiting(), this);
                 break;
             case CUSTOMER_STATE.SATISFIED:
+                SetState(new CustomerStateSatisfied(), this);
                 break;
             case CUSTOMER_STATE.DISSATISFIED:
                 SetState(new CustomerStateDissatisfied(), this);
@@ -50,12 +61,11 @@ public class CustomerStateMachine : StateMachine
 
     public void SetCurrentState(CUSTOMER_STATE state)
     {
-        customerCurrentState = state;
+        customerCurrentState = state;  
+    }
 
-        if(customerCurrentState == CUSTOMER_STATE.LEAVE)
-        {
-            GetComponent<Customer>().counter.OnCustomerLeft();
-            Destroy(this.gameObject);
-        }
+    public void RunTimerFaster()
+    {
+        timerSpeedMultiplier = GameManager._instance.gameConfig.angryCustomerTimerMultiplier;
     }
 }
