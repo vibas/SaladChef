@@ -27,6 +27,16 @@ public class PlayerInteraction : MonoBehaviour
         player.AddItemToPlayerHand(itemID);
     }
 
+    public void KeepVegetableOnExtraPlate(string itemID)
+    {
+        player.RemoveItemFromHand(itemID);
+    }
+
+    public void PickVegetableFromExtraPlate(string itemID)
+    {
+        player.AddItemToPlayerHand(itemID);
+    }
+
     /// <summary>
     /// Puts the vegetable on chopping board and starts chopping
     /// </summary>

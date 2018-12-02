@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Customer : MonoBehaviour
 {
-    public List<string> orderSalad;
+    public Salad orderSalad;
 
     public GameObject itemPrefab;
     public Transform content;
@@ -24,18 +24,18 @@ public class Customer : MonoBehaviour
     {
         orderSalad = GameManager._instance.saladMeuManager.GetRandomSaladFromMenu();
         DisplayOrderItemIngredients();
-        GetComponent<CustomerStateMachine>().SetTotalWaitingTimer(orderSalad.Count);
+        GetComponent<CustomerStateMachine>().SetTotalWaitingTimer(orderSalad.ingredientsList.Count);
     }
 
     void DisplayOrderItemIngredients()
     {
-        for (int i = 0; i < orderSalad.Count; i++)
+        for (int i = 0; i < orderSalad.ingredientsList.Count; i++)
         {
             GameObject vegItem = Instantiate(itemPrefab) as GameObject;
             vegItem.transform.SetParent(content);
             vegItem.transform.localScale = Vector3.one;
             vegItem.transform.localPosition = Vector3.zero;
-            vegItem.GetComponent<Image>().sprite = GameManager._instance.vegInventory.GetVegetable(orderSalad[i]).itemSprite;
+            vegItem.GetComponent<Image>().sprite = GameManager._instance.vegInventory.GetVegetable(orderSalad.ingredientsList[i]).itemSprite;
         }
     }
 
@@ -79,18 +79,15 @@ public class Customer : MonoBehaviour
     {
         if (isAngry)
         {
-            
+            playerWhoDeliveredSalad.playerScoreController.DecreaseScore(orderSalad.price / orderSalad.ingredientsList.Count);
         }
         else if (isSatisfied)
         {
+            playerWhoDeliveredSalad.playerScoreController.IncreaseScore(orderSalad.price);
             if (isImpressed)
             {
 
-            }
-            else
-            {
-
-            }
+            }            
         }
     }
 }

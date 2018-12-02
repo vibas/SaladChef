@@ -13,7 +13,7 @@ public class CustomerStateMachine : StateMachine
         ANGRY,
         LEAVE
     }
-
+    
     public float waitTimeBeforeLeaving;
     public int timerSpeedMultiplier=1;
     public float totalWatingTime;
@@ -26,7 +26,7 @@ public class CustomerStateMachine : StateMachine
 
     public void SetTotalWaitingTimer(int ingredientCount)
     {
-        totalWatingTime = ingredientCount * 10;
+        totalWatingTime = ingredientCount * GameManager._instance.gameConfig.vegChoppingTimerFactor;
     }
 
     // Use this for initialization

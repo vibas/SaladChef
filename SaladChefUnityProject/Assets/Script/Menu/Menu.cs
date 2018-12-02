@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 public class Menu
 {
-    public Dictionary<int, List<string>> menuDict;
+    public Dictionary<int, Salad> menuDict;
 
     public Menu(List<Salad> allSalad)
     {
-        menuDict = new Dictionary<int, List<string>>();
+        menuDict = new Dictionary<int, Salad>();
         for (int i = 0; i < allSalad.Count; i++)
         {   
-            menuDict.Add(allSalad[i].saladID, allSalad[i].ingredientsList);
+            menuDict.Add(allSalad[i].saladID, allSalad[i]);
         }       
     }	
 }
@@ -17,5 +17,6 @@ public class Menu
 public struct Salad
 {
     public int saladID;
+    public int price;
     public List<string> ingredientsList;
 }

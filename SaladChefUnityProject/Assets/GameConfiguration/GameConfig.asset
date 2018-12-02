@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   playerMaxHoldingCapacity: 2
+  playerInitialTotalTimer: 100
   vegetableArray:
   - itemID: Item_1
     itemSprite: {fileID: 21300002, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}
@@ -37,6 +38,7 @@ MonoBehaviour:
     itemSprite: {fileID: 21300014, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}
     choppedItemSprite: {fileID: 21300022, guid: 154a61198bb3cce4e84eed9ca170b057,
       type: 3}
+  vegChoppingTimerFactor: 25
   angryCustomerTimerMultiplier: 2
-  waitTimerForNextCustomer: 45
+  waitTimerForNextCustomer: 35
   waitTimeBeforeLeaving: 3

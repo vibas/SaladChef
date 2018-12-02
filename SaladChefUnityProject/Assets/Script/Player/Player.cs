@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [HideInInspector]
     public PlayerInteraction playerInteraction;
+    [HideInInspector]
+    public PlayerScoreController playerScoreController;
+    [HideInInspector]
+    public PlayerTimerController playerTimerController;
 
     public PlayerInputConfig inputConfig;
     public float movementSpeed;
@@ -13,23 +18,25 @@ public class Player : MonoBehaviour
     public string playerName;
     public SpriteRenderer playerSpriteRenderer;
     public SpriteRenderer[] playerHandItemSprite;     // Make sure this array size should be equal to maxHoldingItemCapacity
-
+   
     private int maxHoldingItemCapacity;
     [SerializeField]
-    private bool isAnyHandFree = false;    
+    private bool isAnyHandFree = false;
+    public bool isPlayerCarryingSalad;
+    bool isPlayerMakingSalad;
+
     private int totalItemsInPlayerHand;
     [SerializeField]
     private string[] itemsInPlayerHand;
-    Queue vegetableQuaue;
-    bool isPlayerMakingSalad;
+    Queue vegetableQuaue;   
 
     public List<string> currentSalad;
-    public bool isPlayerCarryingSalad;
 
+    public PlayerUI playerUI;
     // Tray in player's hand
     [SerializeField]
     private GameObject tray,saladOnPlate;
-    private BoxCollider2D trayCollider;
+    private BoxCollider2D trayCollider;    
 
     /// <summary>
     /// Initialize Player Property
@@ -39,20 +46,26 @@ public class Player : MonoBehaviour
     {
         playerID = playerConfig.playerID;
         playerName = playerConfig.playerName;
-        this.name = playerName;
+        name = playerName;
+
         playerSpriteRenderer.sprite = playerConfig.playerImage;
 
-        inputConfig = playerConfig.inputConfig;
-        movementSpeed = playerConfig.initialMovementSpeed;
+        playerInteraction = GetComponent<PlayerInteraction>();
+        playerScoreController = GetComponent<PlayerScoreController>();
+        playerTimerController = GetComponent<PlayerTimerController>();
 
-        this.maxHoldingItemCapacity = GameManager._instance.gameConfig.playerMaxHoldingCapacity;
+        inputConfig = playerConfig.inputConfig;
+
+        playerTimerController.TotalTime = GameManager._instance.gameConfig.playerInitialTotalTimer;
+        movementSpeed = playerConfig.initialMovementSpeed;
+        maxHoldingItemCapacity = GameManager._instance.gameConfig.playerMaxHoldingCapacity;
 
         itemsInPlayerHand = new string[this.maxHoldingItemCapacity];
-        this.isAnyHandFree = true;
-        this.totalItemsInPlayerHand = 0;
+        isAnyHandFree = true;
+        totalItemsInPlayerHand = 0;        
 
-        playerInteraction = GetComponent<PlayerInteraction>();
         vegetableQuaue = new Queue();
+
         isPlayerMakingSalad = false;
         isPlayerCarryingSalad = false;
 
@@ -148,7 +161,10 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     public string GetFirstPickedVegetable()
     {
-        return vegetableQuaue.Peek().ToString();
+        if (vegetableQuaue.Count > 0)
+            return vegetableQuaue.Peek().ToString();
+        else
+            return "";
     }
 
     /// <summary>
@@ -157,7 +173,7 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="locked"></param>
     public void LockOrUnlockPlayerMovement(bool locked)
-    {
+    {        
         isPlayerMakingSalad = locked;
     }
 
@@ -170,11 +186,19 @@ public class Player : MonoBehaviour
         return !isPlayerMakingSalad;
     } 
 
+    /// <summary>
+    /// Checks if player is currently carrying salad
+    /// </summary>
+    /// <returns></returns>
     public bool IsCarryingSalad()
     {
         return isPlayerCarryingSalad;
     }
 
+    /// <summary>
+    /// Enable Or Disable plate with salad in player's hand
+    /// </summary>
+    /// <param name="shouldSHow"></param>
     public void ShowOrHideSaladInPlayerHand(bool shouldSHow)
     { 
         if(shouldSHow)

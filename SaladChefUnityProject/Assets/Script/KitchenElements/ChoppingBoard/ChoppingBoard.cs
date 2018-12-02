@@ -48,26 +48,37 @@ public class ChoppingBoard : InteractibleKitchenElement
     /// Start the chopping process
     /// </summary>
     /// <param name="player"></param>
-    void StartCuttingVegetable(Player player)
-    {
-        if(!player.AreAllHandsFree())
+    public void StartCuttingVegetable(Player player)
+    {      
+        if(choppingBoardStateMachine.choppingBoardCurrentState == ChoppingBoardStateMachine.CHOPPING_BOARD_STATE.CHOPPING)
+        {
+            return;
+        }
+
+        if (!player.AreAllHandsFree())
         {
             string currentVegetableID = player.GetFirstPickedVegetable();
+            if(currentVegetableID=="")
+            {
+                Debug.LogError("Chopping board hand empty");
+                return;
+            }
             currentSalad.Add(currentVegetableID);
             saladMaker.AddVegetable(GameManager._instance.vegInventory.GetVegetable(currentVegetableID).choppedItemSprite);
             choppingBoardStateMachine.ChangeState(ChoppingBoardStateMachine.CHOPPING_BOARD_STATE.CHOPPING);
             currentLockedPlayer = player;
             currentLockedPlayer.playerInteraction.StartChoppingVegetable(currentVegetableID);
-
-            if (player.AreAllHandsFree())
-            {
-                EnableOrDisableInteractionButton(false);
-            }
+            EnableOrDisableInteractionButton(false);            
         }                 
     }
 
     void PickUpSalad(Player player)
     {
+        if (choppingBoardStateMachine.choppingBoardCurrentState == ChoppingBoardStateMachine.CHOPPING_BOARD_STATE.CHOPPING)
+        {
+            return;
+        }
+
         if (CheckIfSaladReadyToServe(player))
         {
             List<string> salad = Utility.GetACopyList(currentSalad);

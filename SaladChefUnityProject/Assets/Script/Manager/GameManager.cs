@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     public SaladMeuManager saladMeuManager;
     public CustomerSpawnManager customerSpawnManager;
     public PlayerSpawnManager playerSpawnManager;
+    public UIManager uiManager;
+
+    public bool isGameOver = false;
 
     private void Start()
     {
@@ -36,6 +39,13 @@ public class GameManager : MonoBehaviour
         customerSpawnManager.SpawnCustomer();
 
         customerSpawnManager.StartTImer();
+
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            uiManager.hudInstance.InitPlayerHUDUI(allPlayers[i]);
+            allPlayers[i].playerTimerController.StartTimer();
+            allPlayers[i].playerTimerController.onTimerFinished += OnPlayerTimerFinished;
+        }
     } 
     
     public void AddPlayerToAllPlayerList(Player player)
@@ -44,5 +54,33 @@ public class GameManager : MonoBehaviour
         {
             allPlayers.Add(player);
         }
-    }    
+    }  
+    
+    public void OnPlayerTimerFinished()
+    {
+        if(AreBothPlayerTimerCompleted())
+        {
+            Debug.LogError("Game Over");
+            isGameOver =true;
+
+            for (int i = 0; i < allPlayers.Count; i++)
+            {
+                allPlayers[i].LockOrUnlockPlayerMovement(true);
+            }
+        }
+    }
+
+    bool AreBothPlayerTimerCompleted()
+    {
+        bool isBothPlayerTimerCompleted = true;
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            if(!allPlayers[i].playerTimerController.isTimerFinished)
+            {
+                isBothPlayerTimerCompleted = false;
+                break;
+            }
+        }
+        return isBothPlayerTimerCompleted;
+    }
 }

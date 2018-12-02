@@ -53,6 +53,13 @@ public class ChoppingBoardStateMachine : StateMachine
                 choppingBoard.EnableOrDisableInteractionButton(choppingBoard.pickSaladButton, 
                     true, choppingBoard.GetCurrentLockedPlayer().inputConfig.pickKey.ToString());
             }
+            else
+            {
+                if(!choppingBoard.GetCurrentLockedPlayer().AreAllHandsFree())
+                {
+                    choppingBoard.EnableOrDisableInteractionButton(true,choppingBoard.GetCurrentLockedPlayer().inputConfig.putKey.ToString());
+                }
+            }
             
             choppingBoard.FreeUpPlayer();
         }

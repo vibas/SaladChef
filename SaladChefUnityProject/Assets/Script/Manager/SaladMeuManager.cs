@@ -8,15 +8,13 @@ public class SaladMeuManager : MonoBehaviour
     List<Salad> salads;
     public int maxNumberOfSalad;
     List<string> allVegList;
-    List<string> allSaladList;
     List<List<string>> allCominationList;
     List<List<string>> allCombination2, allCombination3;
 
     public void CreateMenu()
     {
         allVegList = new List<string>(GameManager._instance.vegInventory.GetAllVegetables().Keys);
-        salads = new List<Salad>();
-        allSaladList = new List<string>();
+        salads = new List<Salad>();        
 
         allCombination2 = GetAllCombination(allVegList,2);
         allCombination3 = GetAllCombination(allVegList, 3);
@@ -29,8 +27,9 @@ public class SaladMeuManager : MonoBehaviour
         for (int i = 0; i < allCominationList.Count; i++)
         {             
             Salad s = new Salad();
-            s.saladID = count;
+            s.saladID = count;           
             s.ingredientsList = allCominationList[i];
+            s.price = s.ingredientsList.Count * 5;
             salads.Add(s);
             count++;
         }
@@ -77,7 +76,7 @@ public class SaladMeuManager : MonoBehaviour
         return list;
     }
 
-    public List<string> GetRandomSaladFromMenu()
+    public Salad GetRandomSaladFromMenu()
     {
         int randomNumer = Random.Range(0, menu.menuDict.Count);
         return menu.menuDict[randomNumer];
