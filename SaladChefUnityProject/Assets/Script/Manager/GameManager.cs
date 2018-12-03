@@ -12,75 +12,119 @@ public class GameManager : MonoBehaviour
             _instance = this.GetComponent<GameManager>();
     }
 
-    [SerializeField]
-    List<Player> allPlayers;
+    public delegate void OnResetGame();
+    public OnResetGame onResetGame;
+    public delegate void OnGamePause();
+    public OnGamePause onGamePause;
+    public delegate void OnGameResume();
+    public OnGameResume onGameResume;
 
     public GameConfiguration gameConfig;
     public Inventory vegInventory;
+    
+    public CustomerSpawnManager customerManagerInstance;
+    public PlayerSpawnManager playerManagerInstance;    
+    public UIManager uiManagerInstance;
+
     [HideInInspector]
-    public SaladMeuManager saladMeuManager;
-    public CustomerSpawnManager customerSpawnManager;
-    public PlayerSpawnManager playerSpawnManager;
-    public UIManager uiManager;
+    public PlayerRewardSystem playerRewardSystemInstance;
+    [HideInInspector]
+    public SaladMeuManager saladMeuManagerInstance;
 
     public bool isGameOver = false;
+    public bool isGamePaused = false;
 
     private void Start()
-    {
-        allPlayers = new List<Player>();
-
-        playerSpawnManager.Init();
+    { 
         vegInventory = new Inventory(gameConfig.vegetableArray);
-        saladMeuManager = GetComponent<SaladMeuManager>();
-        saladMeuManager.CreateMenu();
+        playerRewardSystemInstance = GetComponent<PlayerRewardSystem>();
+        saladMeuManagerInstance = GetComponent<SaladMeuManager>();
+        saladMeuManagerInstance.CreateMenu();       
+    } 
+
+    public void StartGame()
+    {
+        playerManagerInstance.InitPlayers();
+        playerManagerInstance.StartPlayerActivity();
 
         // For first time, 2 customers are spawned for 2 players.
-        customerSpawnManager.SpawnCustomer();
-        customerSpawnManager.SpawnCustomer();
+        customerManagerInstance.SpawnCustomer();
+        customerManagerInstance.SpawnCustomer();
+        customerManagerInstance.StartWaveTimer();
+        customerManagerInstance.StartCustomerTimer();
+    }   
 
-        customerSpawnManager.StartTImer();
-
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            uiManager.hudInstance.InitPlayerHUDUI(allPlayers[i]);
-            allPlayers[i].playerTimerController.StartTimer();
-            allPlayers[i].playerTimerController.onTimerFinished += OnPlayerTimerFinished;
-        }
-    } 
-    
-    public void AddPlayerToAllPlayerList(Player player)
+    void PauseGame()
     {
-        if(!allPlayers.Contains(player))
-        {
-            allPlayers.Add(player);
-        }
-    }  
-    
+        isGamePaused = true;
+        playerManagerInstance.PausePlayerActivity();
+
+        customerManagerInstance.StopWaveTimer();
+        customerManagerInstance.StopCustomerTimer();
+
+        onGamePause();
+    }
+
+    void ResumeGame()
+    {
+        isGamePaused = false;
+        playerManagerInstance.ResumePlayerActivity();
+
+        customerManagerInstance.StartWaveTimer();
+        customerManagerInstance.StartCustomerTimer();
+
+        onGameResume();
+    }
+
+    void GameOver()
+    {
+        isGameOver = true;
+        PauseGame();
+        uiManagerInstance.ShowGameOverPanel();
+    }
+
+    public void RestartGame()
+    {
+        playerManagerInstance.ResetPlayer();
+        customerManagerInstance.ResetWaveTimer();
+        customerManagerInstance.ResetAllCustomer();
+
+        // For clearing extra plate and chopping board 
+        onResetGame();
+
+        isGameOver = false;
+        isGamePaused = false;
+    }
+
     public void OnPlayerTimerFinished()
     {
-        if(AreBothPlayerTimerCompleted())
+        if (playerManagerInstance.AreBothPlayerTimerCompleted())
         {
-            Debug.LogError("Game Over");
-            isGameOver =true;
-
-            for (int i = 0; i < allPlayers.Count; i++)
-            {
-                allPlayers[i].LockOrUnlockPlayerMovement(true);
-            }
+            Debug.LogError("Game Over");            
+            GameOver();           
         }
     }
 
-    bool AreBothPlayerTimerCompleted()
+    private void Update()
     {
-        bool isBothPlayerTimerCompleted = true;
-        for (int i = 0; i < allPlayers.Count; i++)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(!allPlayers[i].playerTimerController.isTimerFinished)
-            {
-                isBothPlayerTimerCompleted = false;
-                break;
+            StartGame();
+        }
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            if(!isGamePaused)
+            {                
+                PauseGame();
+            }
+            else
+            {               
+                ResumeGame();
             }
         }
-        return isBothPlayerTimerCompleted;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartGame();
+        }
     }
 }

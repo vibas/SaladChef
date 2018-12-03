@@ -13,15 +13,34 @@ public class ChoppingBoardStateMachine : StateMachine
     }
     public float totalChoppingTime;    
     public float timer;
+    public bool shouldRunTimer;
     public CHOPPING_BOARD_STATE choppingBoardCurrentState = CHOPPING_BOARD_STATE.IDLE;
 
     public GameObject timerObj;
     public Image timerImage;
     
     // Use this for initialization
-    void Start ()
+    public void InitStateMachine ()
     {
         ChangeState(CHOPPING_BOARD_STATE.IDLE);
+        shouldRunTimer = true;
+    }
+
+    public void ResetTimer()
+    {
+        timerObj.SetActive(false);
+        shouldRunTimer = false;
+        timer = 0;
+    }
+
+    public void PauseTimer()
+    {
+        shouldRunTimer = false;
+    }
+
+    public void ResumeTimer()
+    {
+        shouldRunTimer = true;
     }
 
     public void ChangeState(CHOPPING_BOARD_STATE state)
@@ -61,7 +80,8 @@ public class ChoppingBoardStateMachine : StateMachine
                 }
             }
             
-            choppingBoard.FreeUpPlayer();
+            if(!GameManager._instance.isGameOver && !GameManager._instance.isGamePaused)
+                choppingBoard.FreeUpPlayer();
         }
     }
 }

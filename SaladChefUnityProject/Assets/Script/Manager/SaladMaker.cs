@@ -56,11 +56,15 @@ public class SaladMaker : MonoBehaviour
     /// </summary>
     public void ClearSalad()
     {
-        for (int i = vegetableList.Count-1; i >= 0; i--)
+        if(vegetableList!=null && vegetableList.Count>0)
         {
-            Destroy(vegetableList[i]);
-        }
-        vegetableList.Clear();
-        vegetableList = null;
+            for (int i = vegetableList.Count - 1; i >= 0; i--)
+            {
+                Destroy(vegetableList[i]);
+            }
+
+            vegetableList.Clear();
+            vegetableList = null;
+        } 
     }
 }

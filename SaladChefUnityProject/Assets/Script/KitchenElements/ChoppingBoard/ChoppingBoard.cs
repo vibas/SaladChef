@@ -8,6 +8,7 @@ public class ChoppingBoard : InteractibleKitchenElement
     Player currentLockedPlayer;
     List<string> currentSalad;
     public SaladMaker saladMaker;
+    bool isOccupied;
 
     public GameObject pickSaladButton; // Extra Button for interactible kitchen element
 
@@ -15,10 +16,59 @@ public class ChoppingBoard : InteractibleKitchenElement
     {
         choppingBoardStateMachine = GetComponent<ChoppingBoardStateMachine>();
         currentSalad = new List<string>();
+        isOccupied = false; 
+    }
+
+    private void Start()
+    {        
+        GameManager._instance.onResetGame += ClearChoppingBoard;
+        GameManager._instance.onGamePause += PauseChopping;
+        GameManager._instance.onGameResume += ResumeChopping;
+
+        choppingBoardStateMachine.InitStateMachine();
+    }    
+
+    public void ClearChoppingBoard()
+    {
+        GameManager._instance.onResetGame -= ClearChoppingBoard;
+        GameManager._instance.onGamePause -= PauseChopping;
+        GameManager._instance.onGameResume -= ResumeChopping;
+
+        isOccupied = false;
+        saladMaker.ClearSalad();
+        currentSalad.Clear();
+        currentLockedPlayer = null;
+
+        choppingBoardStateMachine.ResetTimer();
+
+        ResetChoppingBoard();
+    }
+
+    void ResetChoppingBoard()
+    {
+        GameManager._instance.onResetGame += ClearChoppingBoard;
+        GameManager._instance.onGamePause += PauseChopping;
+        GameManager._instance.onGameResume += ResumeChopping;
+
+        choppingBoardStateMachine.InitStateMachine();
+    }
+
+    void PauseChopping()
+    {
+        choppingBoardStateMachine.PauseTimer();
+    }
+
+    void ResumeChopping()
+    {
+        choppingBoardStateMachine.ResumeTimer();
     }
 
     public override void PlayerReached(Player player)
     {
+        // Dont allow another player interrupt current player
+        if (isOccupied)
+            return;
+
         base.PlayerReached(player);
         player.playerInteraction.onPutKeyPressed += StartCuttingVegetable;
         player.playerInteraction.onPickKeyPressed += PickUpSalad;
@@ -35,10 +85,12 @@ public class ChoppingBoard : InteractibleKitchenElement
     }
 
     public override void PlayerLeft(Player player)
-    {
+    { 
         base.PlayerLeft(player);
         player.playerInteraction.onPutKeyPressed -= StartCuttingVegetable;
         player.playerInteraction.onPickKeyPressed -= PickUpSalad;
+
+        isOccupied = false;
 
         EnableOrDisableInteractionButton(false);
         EnableOrDisableInteractionButton(pickSaladButton, false);
@@ -66,6 +118,7 @@ public class ChoppingBoard : InteractibleKitchenElement
             currentSalad.Add(currentVegetableID);
             saladMaker.AddVegetable(GameManager._instance.vegInventory.GetVegetable(currentVegetableID).choppedItemSprite);
             choppingBoardStateMachine.ChangeState(ChoppingBoardStateMachine.CHOPPING_BOARD_STATE.CHOPPING);
+            isOccupied = true;
             currentLockedPlayer = player;
             currentLockedPlayer.playerInteraction.StartChoppingVegetable(currentVegetableID);
             EnableOrDisableInteractionButton(false);            
@@ -86,6 +139,7 @@ public class ChoppingBoard : InteractibleKitchenElement
             EnableOrDisableInteractionButton(pickSaladButton, false);
             currentSalad.Clear();
             saladMaker.ClearSalad();
+            isOccupied = false;
         }
         else
         {

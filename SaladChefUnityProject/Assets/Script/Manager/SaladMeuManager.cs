@@ -5,8 +5,7 @@ using UnityEngine;
 public class SaladMeuManager : MonoBehaviour
 {
     Menu menu;
-    List<Salad> salads;
-    public int maxNumberOfSalad;
+    List<Salad> salads;    
     List<string> allVegList;
     List<List<string>> allCominationList;
     List<List<string>> allCombination2, allCombination3;

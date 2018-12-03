@@ -6,5 +6,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public HUD hudInstance;
-    
+    public GameObject gameoverPanel;
+
+    public void ShowGameOverPanel()
+    {
+        gameoverPanel.SetActive(true);
+    }
 }

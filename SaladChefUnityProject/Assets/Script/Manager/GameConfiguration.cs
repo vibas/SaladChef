@@ -14,6 +14,7 @@ public class GameConfiguration : ScriptableObject
     [Header("Customer Details")]
     public int angryCustomerTimerMultiplier;
     public float waitTimerForNextCustomer;
-    public float waitTimeBeforeLeaving;  
-    
+    public float waitTimeBeforeLeaving;
+    public int angryCustomerPenalty;
+    public int dissatisfiedCustomerPenalty;
 }

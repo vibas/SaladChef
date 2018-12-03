@@ -6,17 +6,21 @@ public class CustomerSpawnManager : MonoBehaviour
 {
     public CustomerCounter[] customerSpawningPoints;
     public GameObject customerPrefab;
-    float waitTimerForNextCustomer,timer;
+    float waitTimerForNextCustomer, timer;
     bool shouldTimerRun = false;
+    List<Customer> allCustomer;
 
     private void Start()
     {
         waitTimerForNextCustomer = GameManager._instance.gameConfig.waitTimerForNextCustomer;
-        timer = 0;
+        timer = 0;        
     }
 
     public void SpawnCustomer()
     {
+        if (allCustomer == null)
+            allCustomer = new List<Customer>();
+
         CustomerCounter freeCounter = GetFreeCustomerCounter();
 
         if (freeCounter)
@@ -31,7 +35,20 @@ public class CustomerSpawnManager : MonoBehaviour
             freeCounter.customer = customer.GetComponent<Customer>();
             freeCounter.customer.counter = freeCounter;
             freeCounter.customer.CheckForMenu();
-        }        
+
+            if (!allCustomer.Contains(customer.GetComponent<Customer>()))
+            {
+                allCustomer.Add(customer.GetComponent<Customer>());
+            }
+        }
+    }
+
+    public void RemoveCustomerFromAllCustomer(Customer customer)
+    {
+        if (allCustomer.Contains(customer))
+        {
+            allCustomer.Remove(customer);
+        }
     }
 
     CustomerCounter GetFreeCustomerCounter()
@@ -50,7 +67,7 @@ public class CustomerSpawnManager : MonoBehaviour
 
     private void Update()
     {
-        if(shouldTimerRun)
+        if (shouldTimerRun)
         {
             timer += Time.deltaTime;
             if (timer > waitTimerForNextCustomer)
@@ -58,16 +75,52 @@ public class CustomerSpawnManager : MonoBehaviour
                 SpawnCustomer();
                 timer = 0;
             }
-        }        
+        }
     }
 
-    public void StartTImer()
+    public void StartWaveTimer()
     {
         shouldTimerRun = true;
     }
 
-    public void StopTimer()
+    public void StopWaveTimer()
     {
         shouldTimerRun = false;
+    }
+
+    public void ResetWaveTimer()
+    {
+        shouldTimerRun = false;
+        timer = 0;
+    }
+
+    public void StartCustomerTimer()
+    {
+        for (int i = 0; i < allCustomer.Count; i++)
+        {
+            allCustomer[i].customerStateMachine.shouldRunTimer = true;
+        }
+    }
+
+    public void StopCustomerTimer()
+    {
+        for (int i = 0; i < allCustomer.Count; i++)
+        {
+            allCustomer[i].customerStateMachine.shouldRunTimer = false;
+        }
+    }
+
+    public void ResetAllCustomer()
+    {
+        if(allCustomer!=null)
+        {
+            for (int i = allCustomer.Count - 1; i >= 0; i--)
+            {
+                allCustomer[i].counter.isOccupied = false;
+                Destroy(allCustomer[i].gameObject);
+            }
+            allCustomer.Clear();
+            allCustomer = null;
+        }        
     }
 }

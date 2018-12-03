@@ -12,8 +12,12 @@
 
     public override void Execute()
     {
-        machine.timer += UnityEngine.Time.deltaTime*machine.timerSpeedMultiplier;
-        machine.timerImage.fillAmount =1-(machine.timer / machine.totalWatingTime);
+        if(machine.shouldRunTimer)
+        {
+            machine.timer += UnityEngine.Time.deltaTime * machine.timerSpeedMultiplier;
+            machine.timerImage.fillAmount = 1 - (machine.timer / machine.totalWatingTime);
+        }        
+        
         if (machine.timer >= machine.totalWatingTime)
         {
             machine.timerObj.SetActive(false);

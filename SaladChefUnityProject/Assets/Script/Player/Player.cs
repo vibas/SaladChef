@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool isAnyHandFree = false;
     public bool isPlayerCarryingSalad;
-    bool isPlayerMakingSalad;
+    bool isPlayerMovementLocked;
 
     private int totalItemsInPlayerHand;
     [SerializeField]
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
         vegetableQuaue = new Queue();
 
-        isPlayerMakingSalad = false;
+        isPlayerMovementLocked = false;
         isPlayerCarryingSalad = false;
 
         tray.SetActive(false);
@@ -173,8 +173,8 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="locked"></param>
     public void LockOrUnlockPlayerMovement(bool locked)
-    {        
-        isPlayerMakingSalad = locked;
+    {   
+        isPlayerMovementLocked = locked;
     }
 
     /// <summary>
@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     public bool CanMove()
     {
-        return !isPlayerMakingSalad;
+        return !isPlayerMovementLocked;
     } 
 
     /// <summary>

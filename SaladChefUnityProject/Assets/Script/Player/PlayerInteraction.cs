@@ -45,15 +45,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         player.RemoveItemFromHand(itemID);
         player.LockOrUnlockPlayerMovement(true);
-    }
-
-    /// <summary>
-    /// After Chopping a vegetable, player needs to be free to move
-    /// </summary>
-    public void StopChoppingVegetable()
-    {
-        player.LockOrUnlockPlayerMovement(false);
-    }
+    }    
 
     /// <summary>
     /// Once a salad is ready, player carrys the salad to serve
@@ -81,6 +73,11 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager._instance.isGameOver || GameManager._instance.isGamePaused)
+        {
+            return;
+        }
+
         if(Input.GetKeyDown(player.inputConfig.pickKey))
         {
             if(onPickKeyPressed!=null)

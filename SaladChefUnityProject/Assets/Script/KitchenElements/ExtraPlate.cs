@@ -9,6 +9,19 @@ public class ExtraPlate : InteractibleKitchenElement
     public Image vegetableOnPlate;
     public string vegetableID;
 
+    private void Start()
+    {
+        GameManager._instance.onResetGame += ResetExtraPlate;
+    }
+
+    void ResetExtraPlate()
+    {
+        isEmpty = true;
+        vegetableOnPlate.sprite = null;
+        vegetableOnPlate.enabled = false;
+        vegetableID = "";        
+    }
+
     public override void PlayerReached(Player player)
     {
         player.playerInteraction.onPutKeyPressed += PlayerPlacedVegetableOnPlate;
@@ -40,6 +53,11 @@ public class ExtraPlate : InteractibleKitchenElement
 
     void PlayerPlacedVegetableOnPlate(Player player)
     {
+        if(player.AreAllHandsFree() && isEmpty)
+        {
+            return;
+        }
+
         if(isEmpty)
         {
             isEmpty = false;

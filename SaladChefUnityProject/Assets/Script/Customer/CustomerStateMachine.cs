@@ -24,6 +24,8 @@ public class CustomerStateMachine : StateMachine
     public Image timerImage;
     public Customer currentCustomer;
 
+    public bool shouldRunTimer = true;
+
     public void SetTotalWaitingTimer(int ingredientCount)
     {
         totalWatingTime = ingredientCount * GameManager._instance.gameConfig.vegChoppingTimerFactor;
@@ -35,6 +37,7 @@ public class CustomerStateMachine : StateMachine
         ChangeState(CUSTOMER_STATE.WAITING);
         currentCustomer = GetComponent<Customer>();
         waitTimeBeforeLeaving = GameManager._instance.gameConfig.waitTimeBeforeLeaving;
+        shouldRunTimer = true;
     }
 
     public void ChangeState(CUSTOMER_STATE state)

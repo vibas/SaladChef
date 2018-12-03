@@ -13,18 +13,21 @@ public class Customer : MonoBehaviour
 
     public Player playerWhoDeliveredSalad;
 
-    public bool isAngry,isSatisfied,isImpressed;
+    public bool isAngry,isSatisfied,isImpressed, isDissatisfied;
 
     [SerializeField]
     private Sprite[] faceReactionSprite;
     [SerializeField]
     private SpriteRenderer customerFace;
 
+    public CustomerStateMachine customerStateMachine;
+
     public void CheckForMenu()
     {
-        orderSalad = GameManager._instance.saladMeuManager.GetRandomSaladFromMenu();
+        orderSalad = GameManager._instance.saladMeuManagerInstance.GetRandomSaladFromMenu();
         DisplayOrderItemIngredients();
-        GetComponent<CustomerStateMachine>().SetTotalWaitingTimer(orderSalad.ingredientsList.Count);
+        customerStateMachine = GetComponent<CustomerStateMachine>();
+        customerStateMachine.SetTotalWaitingTimer(orderSalad.ingredientsList.Count);
     }
 
     void DisplayOrderItemIngredients()
@@ -55,11 +58,12 @@ public class Customer : MonoBehaviour
     public void GetDissatisfied()
     {
         customerFace.sprite = faceReactionSprite[(int)CustomerStateMachine.CUSTOMER_STATE.DISSATISFIED];
+        isDissatisfied = true;
     }
 
     public void GetWorried()
     {
-        customerFace.sprite = faceReactionSprite[4];
+        customerFace.sprite = faceReactionSprite[4]; // Worried Face index
     }
 
     public void GetAngry()
@@ -72,22 +76,30 @@ public class Customer : MonoBehaviour
     {
         RewardOrPunishPlayer();
         counter.OnCustomerLeft();
+        GameManager._instance.customerManagerInstance.RemoveCustomerFromAllCustomer(this);
         Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// Before Customer Leaves the counter, he/she gives some reward or punishes the player.
+    /// </summary>
     void RewardOrPunishPlayer()
-    {
+    {        
         if (isAngry)
         {
-            playerWhoDeliveredSalad.playerScoreController.DecreaseScore(orderSalad.price / orderSalad.ingredientsList.Count);
+            GameManager._instance.playerRewardSystemInstance.PunishPlayerWithScore(playerWhoDeliveredSalad, GameManager._instance.gameConfig.angryCustomerPenalty);            
         }
         else if (isSatisfied)
         {
-            playerWhoDeliveredSalad.playerScoreController.IncreaseScore(orderSalad.price);
+            GameManager._instance.playerRewardSystemInstance.RewardPlayerWithScore(playerWhoDeliveredSalad, orderSalad.price);            
             if (isImpressed)
             {
-
+                GameManager._instance.playerRewardSystemInstance.RewardPlayerWithPowerUp(playerWhoDeliveredSalad);
             }            
+        } 
+        else if(isDissatisfied)
+        {
+            GameManager._instance.playerRewardSystemInstance.PunishBothPlayerWithScore(GameManager._instance.gameConfig.dissatisfiedCustomerPenalty);
         }
     }
 }
