@@ -27,7 +27,8 @@ public class PlayerTimerController : MonoBehaviour
 
     public void IncreaseTimer(int extraTimer)
     {
-        currentTimer += extraTimer;
+        // As we are incresing current timer in update, we are deducting here to increase remaining timer
+        currentTimer -= (float)extraTimer;        
     }
 
     int GetCurrentTime()

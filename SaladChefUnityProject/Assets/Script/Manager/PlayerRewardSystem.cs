@@ -17,7 +17,7 @@ public class PlayerRewardSystem : MonoBehaviour
     /// <param name="player"></param>
     public void RewardPlayerWithPowerUp(Player player)
     {
-
+        GameManager._instance.powerUpManagerInstance.SpawnRandomPowerUpForPlayer(player.playerID);
     }
 
     /// <summary>

@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
     public Inventory vegInventory;
     
     public CustomerSpawnManager customerManagerInstance;
-    public PlayerSpawnManager playerManagerInstance;    
+    public PlayerSpawnManager playerManagerInstance;
+    public PowerUpManager powerUpManagerInstance;
     public UIManager uiManagerInstance;
 
     [HideInInspector]
@@ -33,11 +34,13 @@ public class GameManager : MonoBehaviour
 
     public bool isGameOver = false;
     public bool isGamePaused = false;
+    public bool isGameStarted = false;
 
     private void Start()
     { 
         vegInventory = new Inventory(gameConfig.vegetableArray);
         playerRewardSystemInstance = GetComponent<PlayerRewardSystem>();
+        powerUpManagerInstance = GetComponent<PowerUpManager>();
         saladMeuManagerInstance = GetComponent<SaladMeuManager>();
         saladMeuManagerInstance.CreateMenu();       
     } 
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
         customerManagerInstance.SpawnCustomer();
         customerManagerInstance.StartWaveTimer();
         customerManagerInstance.StartCustomerTimer();
+        isGameStarted = true;
     }   
 
     void PauseGame()
@@ -65,7 +69,7 @@ public class GameManager : MonoBehaviour
         onGamePause();
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
         isGamePaused = false;
         playerManagerInstance.ResumePlayerActivity();
@@ -79,7 +83,9 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         isGameOver = true;
+        isGameStarted = false;
         PauseGame();
+        uiManagerInstance.HidePausePanel();
         uiManagerInstance.ShowGameOverPanel();
     }
 
@@ -88,7 +94,7 @@ public class GameManager : MonoBehaviour
         playerManagerInstance.ResetPlayer();
         customerManagerInstance.ResetWaveTimer();
         customerManagerInstance.ResetAllCustomer();
-
+        powerUpManagerInstance.ResetAllPowerUps();
         // For clearing extra plate and chopping board 
         onResetGame();
 
@@ -99,32 +105,19 @@ public class GameManager : MonoBehaviour
     public void OnPlayerTimerFinished()
     {
         if (playerManagerInstance.AreBothPlayerTimerCompleted())
-        {
-            Debug.LogError("Game Over");            
+        {                       
             GameOver();           
         }
     }
 
     private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
+    {       
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            StartGame();
-        }
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            if(!isGamePaused)
+            if(!isGamePaused && isGameStarted)
             {                
                 PauseGame();
-            }
-            else
-            {               
-                ResumeGame();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            RestartGame();
-        }
+            }            
+        }        
     }
 }

@@ -161,8 +161,10 @@ public class ChoppingBoard : InteractibleKitchenElement
     /// </summary>
     public void FreeUpPlayer()
     {
+        if (currentLockedPlayer.playerTimerController.isTimerFinished)
+            return;
         currentLockedPlayer.LockOrUnlockPlayerMovement(false);
-        currentLockedPlayer = null;
+        currentLockedPlayer = null;              
     }
 
     public bool CheckIfSaladReadyToServe(Player player)

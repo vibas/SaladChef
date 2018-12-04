@@ -81,7 +81,9 @@ public class ChoppingBoardStateMachine : StateMachine
             }
             
             if(!GameManager._instance.isGameOver && !GameManager._instance.isGamePaused)
+            {
                 choppingBoard.FreeUpPlayer();
+            }                
         }
     }
 }

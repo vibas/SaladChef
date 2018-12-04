@@ -42,6 +42,7 @@ public class HUD : MonoBehaviour
 [System.Serializable]
 public class PlayerUI
 {
+    [HideInInspector]
     public PlayerTimerController playerTimerToObserver;
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI playerScoreText;

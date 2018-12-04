@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public PlayerScoreController playerScoreController;
     [HideInInspector]
     public PlayerTimerController playerTimerController;
+    PlayerMovement playerMovementController;
 
     public PlayerInputConfig inputConfig;
     public float movementSpeed;
@@ -53,6 +54,7 @@ public class Player : MonoBehaviour
         playerInteraction = GetComponent<PlayerInteraction>();
         playerScoreController = GetComponent<PlayerScoreController>();
         playerTimerController = GetComponent<PlayerTimerController>();
+        playerMovementController = GetComponent<PlayerMovement>();
 
         inputConfig = playerConfig.inputConfig;
 
@@ -174,7 +176,7 @@ public class Player : MonoBehaviour
     /// <param name="locked"></param>
     public void LockOrUnlockPlayerMovement(bool locked)
     {   
-        isPlayerMovementLocked = locked;
+        isPlayerMovementLocked = locked;        
     }
 
     /// <summary>
@@ -211,5 +213,21 @@ public class Player : MonoBehaviour
         }
         tray.SetActive(shouldSHow);
         trayCollider.enabled = shouldSHow;
+    }
+
+    public void OnPowerUpCollected(PowerUp powerUp)
+    {
+        switch (powerUp.powerUpType)
+        {
+            case POWERUP_TYPE.SCORE_BOOSTER:
+                playerScoreController.IncreaseScore(powerUp.boostAmount);
+                break;
+            case POWERUP_TYPE.SPEED_BOOSTER:
+                playerMovementController.BoostSpeed(powerUp.boostAmount,5);
+                break;
+            case POWERUP_TYPE.TIME_BOOSTER:
+                playerTimerController.IncreaseTimer(powerUp.boostAmount);
+                break;
+        }
     }
 }

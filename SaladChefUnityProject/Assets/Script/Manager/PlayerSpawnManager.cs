@@ -10,8 +10,8 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public List<Player> allPlayers;
 
-    public PlayerConfig player1Config, player2Config;
-    
+    public PlayerConfig player1Config, player2Config;  
+
 	// Use this for initialization
 	public void InitPlayers ()
     {
@@ -92,5 +92,23 @@ public class PlayerSpawnManager : MonoBehaviour
             }
         }
         return isBothPlayerTimerCompleted;
+    }
+
+    public string GetWinningPlayerName()
+    {
+        string winningPlayer = "";
+        if(allPlayers[0].playerScoreController.Score>allPlayers[1].playerScoreController.Score)
+        {
+            winningPlayer = allPlayers[0].name + " Wins"; 
+        }
+        else if(allPlayers[0].playerScoreController.Score == allPlayers[1].playerScoreController.Score)
+        {
+            winningPlayer = "Its a tie.";
+        }
+        else
+        {
+            winningPlayer = allPlayers[1].name + " Wins";
+        }
+        return winningPlayer;
     }
 }
