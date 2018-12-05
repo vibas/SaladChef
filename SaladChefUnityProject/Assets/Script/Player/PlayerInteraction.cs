@@ -53,7 +53,7 @@ public class PlayerInteraction : MonoBehaviour
     /// <param name="preparedSalad"></param>
     public void CarryPreparedSalad(List<string> preparedSalad)
     {
-        player.currentSalad = preparedSalad;
+        player.currentSalad.ingredientsList = preparedSalad;
         player.isPlayerCarryingSalad = true;
         player.ShowOrHideSaladInPlayerHand(true);
     }
@@ -64,7 +64,7 @@ public class PlayerInteraction : MonoBehaviour
     /// </summary>
     public void RemoveSaladFromHand()
     {
-        player.currentSalad.Clear();
+        player.currentSalad.ingredientsList.Clear();
         player.isPlayerCarryingSalad = false;
         player.ShowOrHideSaladInPlayerHand(false);
     }

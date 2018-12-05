@@ -37,11 +37,11 @@ public class CustomerCounter : InteractibleKitchenElement
 
     public void DeliverSaladToCustomer(Player player)
     {
-        player.currentSalad.Sort();
+        player.currentSalad.ingredientsList.Sort();
         customer.orderSalad.ingredientsList.Sort();
         customer.playerWhoDeliveredSalad = player;
 
-        if(Utility.AreBothListEqual(player.currentSalad,customer.orderSalad.ingredientsList))
+        if(Utility.AreBothListEqual(player.currentSalad.ingredientsList,customer.orderSalad.ingredientsList))
         {
             customer.GetComponent<CustomerStateMachine>().ChangeState(CustomerStateMachine.CUSTOMER_STATE.SATISFIED);
         }

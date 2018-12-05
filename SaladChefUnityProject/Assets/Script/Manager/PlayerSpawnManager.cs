@@ -97,9 +97,13 @@ public class PlayerSpawnManager : MonoBehaviour
     public string GetWinningPlayerName()
     {
         string winningPlayer = "";
+        int winnerScore = 0;
+        string winnerName = "";
         if(allPlayers[0].playerScoreController.Score>allPlayers[1].playerScoreController.Score)
         {
-            winningPlayer = allPlayers[0].name + " Wins"; 
+            winningPlayer = allPlayers[0].name + " Wins";
+            winnerScore = allPlayers[0].playerScoreController.Score;
+            winnerName = allPlayers[0].name;
         }
         else if(allPlayers[0].playerScoreController.Score == allPlayers[1].playerScoreController.Score)
         {
@@ -108,7 +112,25 @@ public class PlayerSpawnManager : MonoBehaviour
         else
         {
             winningPlayer = allPlayers[1].name + " Wins";
+            winnerScore = allPlayers[1].playerScoreController.Score;
+            winnerName = allPlayers[1].name;
+        }
+        if(winnerScore>0)
+        {
+            GameManager._instance.sessionSaveManager.SaveHighestScore(winnerName, winnerScore);
         }
         return winningPlayer;
+    }
+    
+    public string GetEachPlayerScore()
+    {
+        string score = "";
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            if (i == 1)
+                score += "\t";
+            score += allPlayers[i].playerName + " " + allPlayers[i].playerScoreController.Score;
+        }
+        return score;
     }
 }

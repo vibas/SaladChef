@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public PlayerSpawnManager playerManagerInstance;
     public PowerUpManager powerUpManagerInstance;
     public UIManager uiManagerInstance;
+    public SessionSaveManager sessionSaveManager;
 
     [HideInInspector]
     public PlayerRewardSystem playerRewardSystemInstance;
@@ -41,12 +42,15 @@ public class GameManager : MonoBehaviour
         vegInventory = new Inventory(gameConfig.vegetableArray);
         playerRewardSystemInstance = GetComponent<PlayerRewardSystem>();
         powerUpManagerInstance = GetComponent<PowerUpManager>();
+        sessionSaveManager = GetComponent<SessionSaveManager>();
         saladMeuManagerInstance = GetComponent<SaladMeuManager>();
         saladMeuManagerInstance.CreateMenu();       
     } 
 
     public void StartGame()
     {
+        sessionSaveManager.InitHighestScoreDict();
+
         playerManagerInstance.InitPlayers();
         playerManagerInstance.StartPlayerActivity();
 

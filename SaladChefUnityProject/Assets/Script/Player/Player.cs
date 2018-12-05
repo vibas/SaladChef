@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player class is responsible to handle all data and actions for each player.
+/// This scrpt is attached to player GameObject.
+/// </summary>
 public class Player : MonoBehaviour
 {
+    // =============== PLAYER'S COMPONENETS ================== //
     [HideInInspector]
     public PlayerInteraction playerInteraction;
     [HideInInspector]
@@ -12,15 +17,22 @@ public class Player : MonoBehaviour
     public PlayerTimerController playerTimerController;
     PlayerMovement playerMovementController;
 
-    public PlayerInputConfig inputConfig;
-    public float movementSpeed;
-
+    // =============== PLAYER DATA ===============//
     public int playerID;
     public string playerName;
-    public SpriteRenderer playerSpriteRenderer;
-    public SpriteRenderer[] playerHandItemSprite;     // Make sure this array size should be equal to maxHoldingItemCapacity
-   
+    public PlayerInputConfig inputConfig;
+    public float movementSpeed;
     private int maxHoldingItemCapacity;
+
+    // ============ SALAD, TRAY IN PLAYER'S HAND ============ //
+    [SerializeField]
+    private GameObject tray, saladOnPlate;
+    private BoxCollider2D trayCollider;
+    public Salad currentSalad;
+
+    public SpriteRenderer playerSpriteRenderer;         // To change player's image
+    public SpriteRenderer[] playerHandItemSprite;       // To show which vegetable player is carrying
+       
     [SerializeField]
     private bool isAnyHandFree = false;
     public bool isPlayerCarryingSalad;
@@ -29,20 +41,10 @@ public class Player : MonoBehaviour
     private int totalItemsInPlayerHand;
     [SerializeField]
     private string[] itemsInPlayerHand;
-    Queue vegetableQuaue;   
+    Queue vegetableQuaue;    
 
-    public List<string> currentSalad;
-
-    public PlayerUI playerUI;
-    // Tray in player's hand
-    [SerializeField]
-    private GameObject tray,saladOnPlate;
-    private BoxCollider2D trayCollider;    
-
-    /// <summary>
-    /// Initialize Player Property
-    /// </summary>
-    /// <param name="playerConfig"></param>
+    public PlayerUI playerUI;   
+       
     public void InitPlayer(PlayerConfig playerConfig)
     {
         playerID = playerConfig.playerID;
@@ -104,7 +106,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// Check if Player is not carrying anything.
+    /// Make sure that, Player is not carrying anything.
     /// </summary>
     /// <returns></returns>
     public bool AreAllHandsFree()
@@ -180,7 +182,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// If player is making salad, he/she can't move. 
+    /// If player is making salad or his/her timer is up, he/she can't move. 
     /// </summary>
     /// <returns></returns>
     public bool CanMove()
@@ -205,7 +207,7 @@ public class Player : MonoBehaviour
     { 
         if(shouldSHow)
         {
-            saladOnPlate.GetComponent<SaladMaker>().CreateSalad(currentSalad);
+            saladOnPlate.GetComponent<SaladMaker>().CreateSalad(currentSalad.ingredientsList);
         }
         else
         {
@@ -215,6 +217,10 @@ public class Player : MonoBehaviour
         trayCollider.enabled = shouldSHow;
     }
 
+    /// <summary>
+    /// When player triggers the powerup, respective action taken place
+    /// </summary>
+    /// <param name="powerUp"></param>
     public void OnPowerUpCollected(PowerUp powerUp)
     {
         switch (powerUp.powerUpType)

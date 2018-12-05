@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject gameoverPanel;
     public TextMeshProUGUI gameResultText;
+    public TextMeshProUGUI gameScoreText;
 
     public GameObject gameStartPanel;
     public GameObject pausePanel;
@@ -18,14 +19,20 @@ public class UIManager : MonoBehaviour
     {
         gameStartPanel.SetActive(true);
 
-        GameManager._instance.onGamePause += ShowPausePanel;
-        GameManager._instance.onGameResume += HidePausePanel;
+        if (GameManager._instance!=null)
+        {
+            GameManager._instance.onGamePause += ShowPausePanel;
+            GameManager._instance.onGameResume += HidePausePanel;
+        }        
     }
 
     private void OnDisable()
     {
-        GameManager._instance.onGamePause -= ShowPausePanel;
-        GameManager._instance.onGameResume -= HidePausePanel;
+        if (GameManager._instance != null)
+        {
+            GameManager._instance.onGamePause -= ShowPausePanel;
+            GameManager._instance.onGameResume -= HidePausePanel;
+        }           
     }
 
     public void ShowPausePanel()
@@ -43,5 +50,6 @@ public class UIManager : MonoBehaviour
     {
         gameoverPanel.SetActive(true);
         gameResultText.text = GameManager._instance.playerManagerInstance.GetWinningPlayerName();
+        gameScoreText.text = GameManager._instance.playerManagerInstance.GetEachPlayerScore();
     }
 }

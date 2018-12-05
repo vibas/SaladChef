@@ -22,6 +22,7 @@ public class TrashBin : InteractibleKitchenElement
     {    
         if(player.IsCarryingSalad())
         {
+            GameManager._instance.playerRewardSystemInstance.PunishPlayerWithScore(player, player.currentSalad.ingredientsList.Count * 2);
             player.playerInteraction.RemoveSaladFromHand();
             EnableOrDisableInteractionButton(false);
         }
