@@ -114,11 +114,8 @@ public class PlayerSpawnManager : MonoBehaviour
             winningPlayer = allPlayers[1].name + " Wins";
             winnerScore = allPlayers[1].playerScoreController.Score;
             winnerName = allPlayers[1].name;
-        }
-        if(winnerScore>0)
-        {
-            GameManager._instance.sessionSaveManager.SaveHighestScore(winnerName, winnerScore);
-        }
+        }        
+        GameManager._instance.sessionSaveManager.SaveHighestScore(winnerName, winnerScore);        
         return winningPlayer;
     }
     

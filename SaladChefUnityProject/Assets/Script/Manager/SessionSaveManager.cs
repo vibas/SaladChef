@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SessionSaveManager : MonoBehaviour
 {
@@ -38,30 +38,37 @@ public class SessionSaveManager : MonoBehaviour
     {
         if(highestScoreDict!=null)
         {
-            if(highestScoreDict.Count==0)
+            if(score!=0)
             {
-                highestScoreDict.Add(score, playerName);    
-            }
-            else
-            {
-                if(!highestScoreDict.ContainsKey(score))
+                if (highestScoreDict.Count == 0)
                 {
                     highestScoreDict.Add(score, playerName);
                 }
+                else
+                {                    
+                    if(!highestScoreDict.ContainsKey(score))
+                    {
+                        highestScoreDict.Add(score, playerName);
+                    }
+                }
             }
 
-            string scoreItemString = "";
-            foreach (KeyValuePair<int,string> scoreItem in highestScoreDict)
+            var highestScoreSorted = from keyValuepair in highestScoreDict
+                                     orderby keyValuepair.Key descending
+                                     select keyValuepair;
+
+            string scoreItemString = "";            
+            foreach (KeyValuePair<int,string> scoreItem in highestScoreSorted)
             {
                 scoreItemString += scoreItem.Key.ToString() + "," + scoreItem.Value.ToString() + "#";                
             }
 
+            GameManager._instance.uiManagerInstance.gameOverScreen.DisplayTopTenScore(highestScoreSorted);
+
             if (!string.IsNullOrEmpty(scoreItemString))
-            {
-                Debug.LogError("Highest Score = " + scoreItemString);
+            {                
                 PlayerPrefs.SetString(HIGHEST_SCORE, scoreItemString);
             }
         }
     }
-
 }

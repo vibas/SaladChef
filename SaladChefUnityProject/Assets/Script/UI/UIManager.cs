@@ -1,16 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
+﻿using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public HUD hudInstance;
-
-    public GameObject gameoverPanel;
-    public TextMeshProUGUI gameResultText;
-    public TextMeshProUGUI gameScoreText;
+    public GameOverScreen gameOverScreen;    
 
     public GameObject gameStartPanel;
     public GameObject pausePanel;
@@ -48,8 +41,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowGameOverPanel()
     {
-        gameoverPanel.SetActive(true);
-        gameResultText.text = GameManager._instance.playerManagerInstance.GetWinningPlayerName();
-        gameScoreText.text = GameManager._instance.playerManagerInstance.GetEachPlayerScore();
+        gameOverScreen.gameObject.SetActive(true);
+        gameOverScreen.DisplayResult();
     }
 }
