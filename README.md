@@ -15,6 +15,7 @@ Both the players have their respective timer running. In the mean time, customer
 
 If customer's ordered salad and player's delivered salads are not matched, then customer gets angry. Customer's timer runs faster. Within that time if player can not deliver proper salad, then some score is deducted from that player. 
 
+Feel free to download and check out some more features like - Trash Bin, Extra plate to keep a vegetable near by chopping board etc are there. 
 
 # Controls
 
