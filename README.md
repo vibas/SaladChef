@@ -1,5 +1,7 @@
 # SaladChef Unity Project 
 
+This project is made with Unity 2018.2.11f1. 
+
 Salad Chef is a cooking simulation, arcade style game local 2 player game made for PC, where each player has to control his/her respective chef and 
 take order from customer and serve them proper salad in time. At the end of both player's timer game displays the winner. 
 
@@ -22,3 +24,18 @@ Player 1 can move using A,S,D,W keys and interact with objects with E & Q keys
 Player 2 can move using Right, Left, Up, Down keys and interact with objects with M & N keys
 
 When ever any player reaches at any interactible object, inteaction key will be displayed. 
+
+
+# Project Details
+There in onle one scene "GamePlay" scene where whole game works. In Game Scene "Kitchen" GameObject holds whole kitchen, interactible objects like - Veg Box, Chopping Board, Extra Plate, Trash Bin, Customer Counter etc. 
+GameManager GameObject inside scene contains GameManager class which controls all the game flow throuch various sub controller classes. 
+For Example - PlayerSpawnManager manages spawing players and holdng them in a list and adding and removing from list etc... Now player manager's instance is there in GameManager class. And GameManager is the singleton class through which we can get all other controller classes referece and then call their respective methods. 
+
+I have followed another design pattern that is - State Machine Pattern. This is used to create and maintain more number of states for a GameObject. For Example - Customer has various states like - Waiting, Satisfied, Dissatisfied, Angry, Impressed etc. So for each state we create concrete class derived from State class and overridden Enter, Execute and Exit Method. And all these states are controlled from a state machine class. This pattern is pretty much scalable. Any time, we can add a new state or modify a current state without effecting the whole system. 
+
+I have created some Configuration files using scriptable object - GameConfig, PlayerConfig & PowerUpConfig. These classes are derived from ScriptableObject. And using CreateMenu , we can create new config file and add values to it. This helps programmer, designer and artist alwell to tweek values according to their need. 
+
+
+# Conclusion 
+
+I have created this project in 20-25 hours with in a week period of time. I have not tested the whole game from all perspective. So there might be some bugs. Please feel free to download this project and check this out. Please let me know if you find any bugs or if you think some modification in game design or code. Your valuable feedbacks are always welcome. 
