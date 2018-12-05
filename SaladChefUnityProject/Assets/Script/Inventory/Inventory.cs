@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Inventory Class holds all vegetable data
+/// </summary>
 public class Inventory
 {
     Dictionary<string, Vegetable> vegetableInventory;
@@ -16,6 +18,11 @@ public class Inventory
         }
     }
 
+    /// <summary>
+    /// Get one vegetable with given ID
+    /// </summary>
+    /// <param name="itemID"></param>
+    /// <returns></returns>
     public Vegetable GetVegetable(string itemID)
     {
         Vegetable veg = new Vegetable();
@@ -26,8 +33,21 @@ public class Inventory
         return veg;
     }
 
+    /// <summary>
+    /// Get all vegetable Dictionary
+    /// </summary>
+    /// <returns></returns>
     public Dictionary<string, Vegetable> GetAllVegetables()
     {
         return vegetableInventory;
     }
 }
+
+[System.Serializable]
+public struct Vegetable
+{
+    public string itemID;
+    public Sprite itemSprite;
+    public Sprite choppedItemSprite;
+}
+

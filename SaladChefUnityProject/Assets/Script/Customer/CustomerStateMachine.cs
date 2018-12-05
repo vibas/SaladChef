@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Customer State Machine attached to Customer Game Object 
+/// Used to check and modify customer's state and perform each state's action individually
+/// </summary>
 public class CustomerStateMachine : StateMachine
 {
     public enum CUSTOMER_STATE
@@ -15,23 +19,28 @@ public class CustomerStateMachine : StateMachine
     }
     
     public float waitTimeBeforeLeaving;
-    public int timerSpeedMultiplier=1;
+    public int timerSpeedMultiplier=1;      // This variable increases if customer gets angry, so timer runs faster
     public float totalWatingTime;
     public float timer;
+
     public CUSTOMER_STATE customerCurrentState = CUSTOMER_STATE.WAITING;
 
-    public GameObject timerObj;
-    public Image timerImage;
+    public GameObject timerObj;             // Timer Indicator
+    public Image timerImage;                // Image to show timer progress
+
     public Customer currentCustomer;
 
-    public bool shouldRunTimer = true;
+    public bool shouldRunTimer = true;      // According to Game state we need to stop customer's timer 
 
+    /// <summary>
+    /// Checks the total number of ingredients and sets total waitig timer
+    /// </summary>
+    /// <param name="ingredientCount"></param>
     public void SetTotalWaitingTimer(int ingredientCount)
     {
         totalWatingTime = ingredientCount * GameManager._instance.gameConfig.vegChoppingTimerFactor;
     }
-
-    // Use this for initialization
+    
     void Start ()
     {        
         ChangeState(CUSTOMER_STATE.WAITING);
@@ -67,6 +76,9 @@ public class CustomerStateMachine : StateMachine
         customerCurrentState = state;  
     }
 
+    /// <summary>
+    /// Angry customer's timer runs faster
+    /// </summary>
     public void RunTimerFaster()
     {
         timerSpeedMultiplier = GameManager._instance.gameConfig.angryCustomerTimerMultiplier;

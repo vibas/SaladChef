@@ -1,13 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Attachech to Kitchen/CustomerSpawnPoints GameObject
+/// Handles spawing customer in free counter in a timer interval / when required
+/// </summary>
 public class CustomerSpawnManager : MonoBehaviour
 {
     public CustomerCounter[] customerSpawningPoints;
     public GameObject customerPrefab;
+
     float waitTimerForNextCustomer, timer;
     bool shouldTimerRun = false;
+
     List<Customer> allCustomer;
 
     private void Start()
@@ -43,11 +48,23 @@ public class CustomerSpawnManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// After customer leaves the counter, remove that customer from list
+    /// </summary>
+    /// <param name="customer"></param>
     public void RemoveCustomerFromAllCustomer(Customer customer)
     {
         if (allCustomer.Contains(customer))
         {
             allCustomer.Remove(customer);
+        }
+
+        // Check if Game is still running and no customer is there, then spawn one customer
+        if(allCustomer.Count == 0)
+        {
+            if (GameManager._instance.isGamePaused || GameManager._instance.isGameOver)
+                return;
+            SpawnCustomer();
         }
     }
 
@@ -110,6 +127,9 @@ public class CustomerSpawnManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when player restarts the game
+    /// </summary>
     public void ResetAllCustomer()
     {
         if(allCustomer!=null)

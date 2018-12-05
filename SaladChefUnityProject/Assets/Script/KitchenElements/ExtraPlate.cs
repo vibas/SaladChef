@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
+/// <summary>
+/// Attached to extra plate beside the chopping board
+/// </summary>
 public class ExtraPlate : InteractibleKitchenElement
 {
     public bool isEmpty;
-    public Image vegetableOnPlate;
+
+    public Image vegetableOnPlate;      // UI Image for displaying kept vegetable on plate
     public string vegetableID;
 
     private void Start()
@@ -14,6 +15,9 @@ public class ExtraPlate : InteractibleKitchenElement
         GameManager._instance.onResetGame += ResetExtraPlate;
     }
 
+    /// <summary>
+    /// Called when player restarts
+    /// </summary>
     void ResetExtraPlate()
     {
         isEmpty = true;
@@ -29,14 +33,14 @@ public class ExtraPlate : InteractibleKitchenElement
         
         if (player.AreAllHandsFree())
         {
-            if(!isEmpty)
+            if(!isEmpty)    // If there is a vegetable on plate
             {
                 EnableOrDisableInteractionButton(true, player.inputConfig.pickKey.ToString());
             }
         } 
         else
         {
-            if (isEmpty)
+            if (isEmpty)    // If there is not any vegetable on plate
             {
                 EnableOrDisableInteractionButton(true, player.inputConfig.putKey.ToString());
             }

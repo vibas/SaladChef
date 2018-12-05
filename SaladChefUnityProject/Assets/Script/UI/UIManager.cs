@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Attached to UIManager GameObject
+/// Holds All screen reference
+/// All UI operation happens through this class
+/// </summary>
 public class UIManager : MonoBehaviour
 {
-    public HUD hudInstance;
-    public GameOverScreen gameOverScreen;    
+    public HUD hudInstance;                 // Player's HUD 
+    public GameOverScreen gameOverScreen;   // Game Over screen reference   
 
     public GameObject gameStartPanel;
     public GameObject pausePanel;

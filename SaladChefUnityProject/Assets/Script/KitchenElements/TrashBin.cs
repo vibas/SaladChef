@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿/// <summary>
+/// Attached to Trash Bin GameObject
+/// </summary>
 public class TrashBin : InteractibleKitchenElement
 {
     public override void PlayerReached(Player player)

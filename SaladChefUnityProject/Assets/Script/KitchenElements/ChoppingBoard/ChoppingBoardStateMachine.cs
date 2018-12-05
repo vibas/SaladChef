@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Attached to each chopping board to maintain their state and timer
+/// </summary>
 public class ChoppingBoardStateMachine : StateMachine
 {   
     public enum CHOPPING_BOARD_STATE
@@ -11,15 +12,16 @@ public class ChoppingBoardStateMachine : StateMachine
         CHOPPING,
         SALADREADY
     }
+
     public float totalChoppingTime;    
     public float timer;
-    public bool shouldRunTimer;
+    public bool shouldRunTimer;         // Need to stop/pause timer according to games state
+
     public CHOPPING_BOARD_STATE choppingBoardCurrentState = CHOPPING_BOARD_STATE.IDLE;
 
     public GameObject timerObj;
-    public Image timerImage;
+    public Image timerImage;        // Timer Progress Image
     
-    // Use this for initialization
     public void InitStateMachine ()
     {
         ChangeState(CHOPPING_BOARD_STATE.IDLE);

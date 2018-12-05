@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Attached to powerup Game Object
+/// Instantiates powerup object at random place and intialize its properties
+/// </summary>
 public class PowerUp : MonoBehaviour
-{
-    
-    int playerID;
+{    
+    int playerID;       // Which player can collect this powerup
     
     public POWERUP_TYPE powerUpType;    
-    public float lifeSpan;    
-    public int boostAmount;
+    public float lifeSpan;      // How long power up stays before it disappears
+    public int boostAmount;     // Amount to be added (Timer, Score ect)
 
     float timer;
     bool shouldRunTimer;
@@ -55,6 +58,10 @@ public class PowerUp : MonoBehaviour
         }        
     }
 
+    /// <summary>
+    /// When player collects the powerup it is destroyed and powerup is applied to player
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))

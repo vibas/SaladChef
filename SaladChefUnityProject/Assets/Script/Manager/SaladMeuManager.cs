@@ -1,7 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+///  Attached to GameManager Game Object
+///  Handles creating all possible menu from the vegetable list
+///  Customer gets random item from Menu using this class
+/// </summary>
 public class SaladMeuManager : MonoBehaviour
 {
     Menu menu;

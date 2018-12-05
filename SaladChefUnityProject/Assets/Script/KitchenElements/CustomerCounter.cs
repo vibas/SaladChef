@@ -1,13 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿/// <summary>
+/// Attached to each customer counter Game Object
+/// </summary>
 public class CustomerCounter : InteractibleKitchenElement
 {
     public bool isOccupied;
     public Customer customer;
     Player currentPlayer;
 
+    /// <summary>
+    /// Reset counter's data when any customer leaves
+    /// </summary>
     public void OnCustomerLeft()
     {
         customer = null;
@@ -44,13 +46,13 @@ public class CustomerCounter : InteractibleKitchenElement
         if(Utility.AreBothListEqual(player.currentSalad.ingredientsList,customer.orderSalad.ingredientsList))
         {
             customer.GetComponent<CustomerStateMachine>().ChangeState(CustomerStateMachine.CUSTOMER_STATE.SATISFIED);
+            player.playerInteraction.RemoveSaladFromHand();
         }
         else
-        {
+        {           
             customer.GetComponent<CustomerStateMachine>().ChangeState(CustomerStateMachine.CUSTOMER_STATE.ANGRY);
         }
-
-        player.playerInteraction.RemoveSaladFromHand();
+        
         EnableOrDisableInteractionButton(false);        
     }
 

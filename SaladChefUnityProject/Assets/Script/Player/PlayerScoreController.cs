@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Attached to Player Game Object
+/// Handles increasing/ decreasing of score
+/// </summary>
 public class PlayerScoreController : MonoBehaviour
 {
     int playerScore;

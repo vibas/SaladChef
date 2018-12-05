@@ -1,4 +1,8 @@
 ﻿using System.Collections.Generic;
+
+/// <summary>
+/// Holds all the salads created by SaladMenuManager
+/// </summary>
 public class Menu
 {
     public Dictionary<int, Salad> menuDict;

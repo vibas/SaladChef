@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Attached to GameManager Game Object
+/// Handles creation of powerup
+/// </summary>
 public class PowerUpManager : MonoBehaviour
 { 
     [SerializeField]

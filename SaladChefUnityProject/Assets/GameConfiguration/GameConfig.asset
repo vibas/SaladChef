@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   playerMaxHoldingCapacity: 2
-  playerInitialTotalTimer: 300
+  playerInitialTotalTimer: 180
   vegetableArray:
   - itemID: Item_1
     itemSprite: {fileID: 21300002, guid: 154a61198bb3cce4e84eed9ca170b057, type: 3}

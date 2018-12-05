@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerCollisionChecker : MonoBehaviour {
-
+/// <summary>
+/// Attched to player Game Object to detect collision
+/// </summary>
+public class PlayerCollisionChecker : MonoBehaviour
+{
     Player player;
 
     private void Awake()

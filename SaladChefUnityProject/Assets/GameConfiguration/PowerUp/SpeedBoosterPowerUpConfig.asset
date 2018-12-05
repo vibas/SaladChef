@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: SpeedBoosterPowerUpConfig
   m_EditorClassIdentifier: 
   powerUpType: 1
-  powerUpLifeSpan: 10
+  powerUpLifeSpan: 15
   boostAmount: 2
   icon: {fileID: 21300000, guid: cbd6efb3fecf36c469637296ed4195c6, type: 3}
   consumablePowerTime: 5

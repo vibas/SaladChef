@@ -1,16 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Attached to each chopping board
+/// </summary>
 public class ChoppingBoard : InteractibleKitchenElement
 {
     ChoppingBoardStateMachine choppingBoardStateMachine;
-    Player currentLockedPlayer;
-    List<string> currentSalad;
+
+    Player currentLockedPlayer;         // Player who is using this chop board
+    List<string> currentSalad;          // Holds ingredient IDs
     public SaladMaker saladMaker;
     bool isOccupied;
 
-    public GameObject pickSaladButton; // Extra Button for interactible kitchen element
+    public GameObject pickSaladButton;  // Extra Button for interactible kitchen element
 
     private void Awake()
     {
@@ -28,6 +31,9 @@ public class ChoppingBoard : InteractibleKitchenElement
         choppingBoardStateMachine.InitStateMachine();
     }    
 
+    /// <summary>
+    /// Clear salad list and remove sprite from chopping board
+    /// </summary>
     public void ClearChoppingBoard()
     {
         GameManager._instance.onResetGame -= ClearChoppingBoard;
@@ -44,6 +50,9 @@ public class ChoppingBoard : InteractibleKitchenElement
         ResetChoppingBoard();
     }
 
+    /// <summary>
+    /// Called when player restarts the game
+    /// </summary>
     void ResetChoppingBoard()
     {
         GameManager._instance.onResetGame += ClearChoppingBoard;
@@ -167,6 +176,11 @@ public class ChoppingBoard : InteractibleKitchenElement
         currentLockedPlayer = null;              
     }
 
+    /// <summary>
+    /// If there is salad on chopping board and player's both hands are free to carry it
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
     public bool CheckIfSaladReadyToServe(Player player)
     {
         bool saladReadyToServe = false;

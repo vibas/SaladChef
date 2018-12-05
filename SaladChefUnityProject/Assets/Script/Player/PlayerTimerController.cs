@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Attached to Player Game Object
+/// Handles each player's timer counting (increase timer if powerup is activated)
+/// </summary>
 public class PlayerTimerController : MonoBehaviour
 {
     int totalTimer;    
@@ -41,6 +45,10 @@ public class PlayerTimerController : MonoBehaviour
         return TotalTime - GetCurrentTime();
     }
 
+    /// <summary>
+    /// Get Remaining Time in time format
+    /// </summary>
+    /// <returns></returns>
     public string GetCurrentTimeString()
     {
         string minutes = Mathf.Floor(GetRemainingTimer() / 60).ToString("00");

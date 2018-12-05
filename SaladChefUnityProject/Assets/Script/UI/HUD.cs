@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Attached to UICanvas/HUDPanel
+/// Handles updating player's data in HUD
+/// </summary>
 public class HUD : MonoBehaviour
 {
     public PlayerUI player1UI;

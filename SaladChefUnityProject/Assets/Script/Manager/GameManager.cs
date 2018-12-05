@@ -1,7 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Attached to GameManager GameObject. 
+/// Singleton Class
+/// Holds all the manager's reference
+/// Holds Game Configuration (customizable)
+/// Game states are also managed here (Resume, Pause, Restart, Start etc..)
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;    
@@ -24,8 +29,10 @@ public class GameManager : MonoBehaviour
     
     public CustomerSpawnManager customerManagerInstance;
     public PlayerSpawnManager playerManagerInstance;
+    [HideInInspector]
     public PowerUpManager powerUpManagerInstance;
     public UIManager uiManagerInstance;
+    [HideInInspector]
     public SessionSaveManager sessionSaveManager;
 
     [HideInInspector]
@@ -55,8 +62,11 @@ public class GameManager : MonoBehaviour
         playerManagerInstance.StartPlayerActivity();
 
         // For first time, 2 customers are spawned for 2 players.
-        customerManagerInstance.SpawnCustomer();
-        customerManagerInstance.SpawnCustomer();
+        for (int i = 0; i < 2; i++)
+        {
+            customerManagerInstance.SpawnCustomer();
+        } 
+        
         customerManagerInstance.StartWaveTimer();
         customerManagerInstance.StartCustomerTimer();
         isGameStarted = true;
@@ -106,6 +116,9 @@ public class GameManager : MonoBehaviour
         isGamePaused = false;
     }
 
+    /// <summary>
+    /// When ever any of the player's timer is completed, we check if both the player's timers are completed or not
+    /// </summary>
     public void OnPlayerTimerFinished()
     {
         if (playerManagerInstance.AreBothPlayerTimerCompleted())

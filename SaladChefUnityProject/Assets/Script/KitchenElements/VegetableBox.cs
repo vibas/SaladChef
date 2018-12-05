@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿/// <summary>
+/// Attached to each vegetable box
+/// Holds respective data and handles player's interaction (can pick)  
+/// </summary>
 public class VegetableBox : InteractibleKitchenElement
 {
-    public string itemID;      
+    public string itemID;      // Vegetable ID
 
     public override void PlayerReached(Player player)
     {

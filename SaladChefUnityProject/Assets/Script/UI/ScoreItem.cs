@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Each player score item containing name and score
+/// </summary>
 public class ScoreItem : MonoBehaviour
 {
     public TextMeshProUGUI playerNameText, playerScoreText;

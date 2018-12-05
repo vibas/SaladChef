@@ -1,6 +1,5 @@
 ﻿public class CustomerStateDissatisfied : State
 {
-
     CustomerStateMachine machine;
     public override void Enter()
     {

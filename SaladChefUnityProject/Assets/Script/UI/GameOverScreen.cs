@@ -3,6 +3,10 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 
+/// <summary>
+/// Attached to GameOver Panel game object
+/// Handles displaying result, highest score
+/// </summary>
 public class GameOverScreen : MonoBehaviour
 {    
     public TextMeshProUGUI gameResultText;

@@ -1,19 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Base Class for all interactible items in kitchen/// 
+/// </summary>
 public class InteractibleKitchenElement : MonoBehaviour
 {
+    // Interaction key hint button
     public GameObject interactionButton;
     public TextMesh buttonText;
 
-    public virtual void PlayerReached(Player player)
-    {
-    }
+    /// <summary>
+    /// When player triggers the interactible
+    /// </summary>
+    /// <param name="player"></param>
+    public virtual void PlayerReached(Player player){}
 
-    public virtual void PlayerLeft(Player player)
-    {
-    }
+    /// <summary>
+    /// When player exits from trigger of interactible item
+    /// </summary>
+    /// <param name="player"></param>
+    public virtual void PlayerLeft(Player player){}
 
     public void EnableOrDisableInteractionButton(bool enable, string buttonName = "")
     {

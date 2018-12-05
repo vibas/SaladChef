@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+/// <summary>
+/// Attached to Game Manager Game Object
+/// Handles Rewards and Punishment to player
+/// </summary>
 public class PlayerRewardSystem : MonoBehaviour
 {
     /// <summary>

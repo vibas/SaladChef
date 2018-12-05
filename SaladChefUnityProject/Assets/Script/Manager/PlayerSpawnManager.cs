@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Attachech to PlayersParent GameObject
+/// Handles spawing player and initializig their data
+/// </summary>
 public class PlayerSpawnManager : MonoBehaviour
 {
     [Tooltip("Present inside Kitchen")]
@@ -10,9 +14,8 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public List<Player> allPlayers;
 
-    public PlayerConfig player1Config, player2Config;  
-
-	// Use this for initialization
+    public PlayerConfig player1Config, player2Config;  // Can be customized
+	
 	public void InitPlayers ()
     {
         allPlayers = new List<Player>();
@@ -52,6 +55,7 @@ public class PlayerSpawnManager : MonoBehaviour
         }        
     }
 
+    // Start player timer and UI Updation
     public void StartPlayerActivity()
     {
         for (int i = 0; i < allPlayers.Count; i++)
@@ -80,6 +84,10 @@ public class PlayerSpawnManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if both the players have run out of time or not
+    /// </summary>
+    /// <returns></returns>
     public bool AreBothPlayerTimerCompleted()
     {
         bool isBothPlayerTimerCompleted = true;
@@ -94,6 +102,10 @@ public class PlayerSpawnManager : MonoBehaviour
         return isBothPlayerTimerCompleted;
     }
 
+    /// <summary>
+    /// Gets a message "X player wins"
+    /// </summary>
+    /// <returns></returns>
     public string GetWinningPlayerName()
     {
         string winningPlayer = "";
@@ -119,6 +131,10 @@ public class PlayerSpawnManager : MonoBehaviour
         return winningPlayer;
     }
     
+    /// <summary>
+    /// Gets a message containing each player name and score
+    /// </summary>
+    /// <returns></returns>
     public string GetEachPlayerScore()
     {
         string score = "";

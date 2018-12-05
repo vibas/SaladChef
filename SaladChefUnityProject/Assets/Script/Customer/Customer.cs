@@ -1,27 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles all data behaviour of customer. 
+/// Attached to customer Game Object
+/// </summary>
 public class Customer : MonoBehaviour
 {
     public Salad orderSalad;
 
-    public GameObject itemPrefab;
-    public Transform content;
+    public GameObject itemPrefab;   // Veg Item (UI) to be added to grid , on top of customer 
+    public Transform content;       // Grid transform to hold all vegetable  
+
     public CustomerCounter counter;
 
     public Player playerWhoDeliveredSalad;
 
-    public bool isAngry,isSatisfied,isImpressed, isDissatisfied;
+    // While a customer leaves, we check his status to reward or punich player
+    public bool isAngry,isSatisfied,isImpressed, isDissatisfied;    
 
     [SerializeField]
-    private Sprite[] faceReactionSprite;
+    private Sprite[] faceReactionSprite;    // All possible face reaction sprite
     [SerializeField]
     private SpriteRenderer customerFace;
 
-    public CustomerStateMachine customerStateMachine;
+    // State Machine of customer to run wait timer and change to different states (Waiting, Angry, Dissatisfied)
+    public CustomerStateMachine customerStateMachine;   
 
+    /// <summary>
+    /// Checks menu and orders any random Salad from it
+    /// </summary>
     public void CheckForMenu()
     {
         orderSalad = GameManager._instance.saladMeuManagerInstance.GetRandomSaladFromMenu();
@@ -30,6 +38,9 @@ public class Customer : MonoBehaviour
         customerStateMachine.SetTotalWaitingTimer(orderSalad.ingredientsList.Count);
     }
 
+    /// <summary>
+    /// Display scroll list above customer head containig all ingredients to be added to salad
+    /// </summary>
     void DisplayOrderItemIngredients()
     {
         for (int i = 0; i < orderSalad.ingredientsList.Count; i++)
@@ -41,7 +52,7 @@ public class Customer : MonoBehaviour
             vegItem.GetComponent<Image>().sprite = GameManager._instance.vegInventory.GetVegetable(orderSalad.ingredientsList[i]).itemSprite;
         }
     }
-
+    
     public void GetSatisfied(bool isImpressed = false)
     {
         isSatisfied = true;

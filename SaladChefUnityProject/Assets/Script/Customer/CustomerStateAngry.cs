@@ -1,6 +1,4 @@
-﻿
-
-public class CustomerStateAngry : State
+﻿public class CustomerStateAngry : State
 {
     CustomerStateMachine machine;
     public override void Enter()
@@ -15,7 +13,6 @@ public class CustomerStateAngry : State
 
     public override void Execute()
     {
-
     }
 
     public override void Exit()

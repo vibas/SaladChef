@@ -2,6 +2,10 @@
 using UnityEngine;
 using System.Linq;
 
+/// <summary>
+/// Attached to GameManager Game Object
+/// Handles saving and reading game data - Highest Score 
+/// </summary>
 public class SessionSaveManager : MonoBehaviour
 {
     const string HIGHEST_SCORE = "HIGHEST_SCORE";

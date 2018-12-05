@@ -1,7 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Attached to player Game Object
+/// All interaction happens here.
+/// Also player's input for interaction is handled in this class
+/// </summary>
 public class PlayerInteraction : MonoBehaviour
 {
     public delegate void OnPickKeyPressed(Player p);
@@ -18,6 +22,7 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     #region PlayerInteraction
+    
     /// <summary>
     /// Picks a vegetable from basket
     /// </summary>
